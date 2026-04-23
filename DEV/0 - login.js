@@ -1,4 +1,7 @@
-<link rel="preconnect" href="https://cdn.jsdelivr.net"> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> <style>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
 html, body{
   margin:0;
   padding:0;
@@ -37,7 +40,6 @@ body{
   justify-content:center;
 }
 
-/* Сильно уменьшили всю белую плашку */
 .oneiro-login-card{
   position:relative;
   width:min(650px, calc(100% - 340px));
@@ -46,7 +48,7 @@ body{
   background:#f7f7f8;
   border-radius:44px;
   box-shadow:0 10px 28px rgba(0,0,0,.28);
-  padding:52px 210px 52px 52px; /* справа сильно меньше воздуха */
+  padding:52px 210px 52px 52px;
   display:flex;
   align-items:center;
 }
@@ -105,7 +107,7 @@ body{
 
 .oneiro-login-button-row{
   display:flex;
-  justify-content:center; /* было flex-start */
+  justify-content:center;
 }
 
 .oneiro-login-button{
@@ -127,6 +129,7 @@ body{
   cursor:pointer;
   transition:background .18s ease, opacity .18s ease;
   -webkit-tap-highlight-color:transparent;
+  margin:0 auto;
 }
 
 .oneiro-login-button:hover{
@@ -138,10 +141,6 @@ body{
   cursor:default;
 }
 
-.oneiro-login-button{
-  margin: 0 auto; /* гарантирует центр */
-}
-
 .oneiro-login-message{
   width:100%;
   margin-top:16px;
@@ -150,17 +149,32 @@ body{
   line-height:1.45;
   font-weight:400;
   color:#111111;
-
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
+  gap:8px;
 }
 
 .oneiro-login-message.is-error,
 .oneiro-login-message.is-success,
 .oneiro-login-message.is-loading{
   color:#111111;
+}
+
+.oneiro-login-message.is-loading::before{
+  content:"";
+  width:14px;
+  height:14px;
+  border:2px solid rgba(17,17,17,.2);
+  border-top-color:#33206f;
+  border-radius:50%;
+  animation:oneiro-spin .8s linear infinite;
+  flex:0 0 auto;
+}
+
+@keyframes oneiro-spin{
+  to{ transform:rotate(360deg); }
 }
 
 .oneiro-login-illustration-wrap{
@@ -240,10 +254,10 @@ body{
     padding:14px;
     align-items:flex-start;
   }
-  
+
   .oneiro-login-legal{
     margin-top:5px;
-    margin-bottom:10px; /* поднимает выше картинки */
+    margin-bottom:10px;
   }
 
   .oneiro-login-shell{
@@ -276,39 +290,73 @@ body{
     height:300px;
   }
 }
+</style>
 
-
-</style> <div class="oneiro-login-page"> <div class="oneiro-login-shell"> <div class="oneiro-login-card"> <div class="oneiro-login-content"> <h1 class="oneiro-login-title">Онейро</h1> <p class="oneiro-login-subtitle">
+<div class="oneiro-login-page">
+  <div class="oneiro-login-shell">
+    <div class="oneiro-login-card">
+      <div class="oneiro-login-content">
+        <h1 class="oneiro-login-title">Онейро</h1>
+        <p class="oneiro-login-subtitle">
           Введите email, чтобы получить ссылку для входа
-        </p> <div class="oneiro-login-field"> <input
+        </p>
+
+        <div class="oneiro-login-field">
+          <input
             id="oneiro-email"
             class="oneiro-login-input"
             type="email"
+            name="email"
             inputmode="email"
             autocomplete="email"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
             placeholder="Ваш email"
-          /> </div> <div class="oneiro-login-button-row"> <button id="oneiro-button" class="oneiro-login-button" type="button">
+          />
+        </div>
+
+        <div class="oneiro-login-button-row">
+          <button id="oneiro-button" class="oneiro-login-button" type="button">
             Получить ссылку
-          </button> </div> <div id="oneiro-message" class="oneiro-login-message" aria-live="polite"></div> <div class="oneiro-login-legal">
-  Регистрируясь в системе, вы соглашаетесь с условиями
-  <a href="http://oneiro-mom.ru/privacy" target="_blank">политики конфиденциальности</a>
-  и
-  <a href="http://oneiro-mom.ru/user-terms" target="_blank">пользовательского соглашения</a>.
-</div></div> </div> <div class="oneiro-login-illustration-wrap" aria-hidden="true"> <img
+          </button>
+        </div>
+
+        <div id="oneiro-message" class="oneiro-login-message" aria-live="polite"></div>
+
+        <div class="oneiro-login-legal">
+          Регистрируясь в системе, вы соглашаетесь с условиями
+          <a href="http://oneiro-mom.ru/privacy" target="_blank">политики конфиденциальности</a>
+          и
+          <a href="http://oneiro-mom.ru/user-terms" target="_blank">пользовательского соглашения</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="oneiro-login-illustration-wrap" aria-hidden="true">
+      <img
         class="oneiro-login-illustration"
         src="https://static.tildacdn.com/tild3166-3532-4335-a632-363961396337/MomAndBaby.png"
         alt=""
-      /> </div> </div> </div> <script>
+      />
+    </div>
+  </div>
+</div>
+
+<script>
 (function(){
   const sb = window.supabase.createClient(
     'https://mvhojfybibxppyrdgzzc.supabase.co',
     'sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF',
     {
-      auth:{ detectSessionInUrl:true }
+      auth: { detectSessionInUrl: true }
     }
   );
 
-  const next = new URLSearchParams(window.location.search).get('next') || '/dev-chat';
+  const searchParams = new URLSearchParams(window.location.search);
+  const next = searchParams.get('next') || '/dev-chat';
+  const rawOneiroApp = (searchParams.get('oneiroapp') || '').trim().toLowerCase();
+  const isOneiroApp = rawOneiroApp === 'true' || rawOneiroApp === '1';
 
   const emailInput = document.getElementById('oneiro-email');
   const button = document.getElementById('oneiro-button');
@@ -327,11 +375,37 @@ body{
     });
   }
 
+  function buildWebLoginUrl(){
+    const params = new URLSearchParams();
+    params.set('next', next);
+
+    if (isOneiroApp) {
+      params.set('oneiroapp', 'true');
+    }
+
+    return window.location.origin + window.location.pathname + '?' + params.toString();
+  }
+
+  function buildEmailRedirectTo(){
+    const webLoginUrl = buildWebLoginUrl();
+
+    if (isOneiroApp) {
+      return 'oneiroapp://open?url=' + encodeURIComponent(webLoginUrl);
+    }
+
+    return webLoginUrl;
+  }
+
   async function sendMagicLink(){
     const email = (emailInput && emailInput.value ? emailInput.value : '').trim();
 
     if(!email){
       showMessage('Введите email', 'error');
+      return;
+    }
+
+    if (emailInput && !emailInput.checkValidity()) {
+      showMessage('Введите корректный email', 'error');
       return;
     }
 
@@ -342,7 +416,7 @@ body{
       const { error } = await sb.auth.signInWithOtp({
         email: email,
         options: {
-          emailRedirectTo: window.location.origin + '/dev-login?next=' + encodeURIComponent(next)
+          emailRedirectTo: buildEmailRedirectTo()
         }
       });
 
@@ -361,19 +435,24 @@ body{
 
   async function checkSession(){
     const { data } = await sb.auth.getSession();
-    if(data && data.session){
+    if (data && data.session) {
       window.location.replace(next);
     }
   }
 
   function setLoadingState(isLoading){
-    if (!button) return;
-    button.disabled = !!isLoading;
+    if (button) {
+      button.disabled = !!isLoading;
+    }
+
+    if (emailInput) {
+      emailInput.disabled = !!isLoading;
+    }
   }
 
   function showMessage(text, state){
     if (!message) return;
-    message.innerText = text || '';
+    message.textContent = text || '';
     message.classList.remove('is-error', 'is-success', 'is-loading');
     if (state) {
       message.classList.add('is-' + state);
