@@ -3,7 +3,7 @@
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
   (async function () {
-    const SUPABASE_URL = 'https://mvhojfybibxppyrdgzzc.supabase.co';
+    const SUPABASE_URL = 'https://ivagulin.dedyn.io/supabase-dev';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF';
     const WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/57607eb8-5004-4dec-ae86-4972c652b50f/chat';
 
@@ -15,11 +15,25 @@
       },
     });
 
+    const searchParams = new URLSearchParams(window.location.search);
+    const rawOneiroApp = (searchParams.get('oneiroapp') || '').trim().toLowerCase();
+    const isOneiroApp = rawOneiroApp === 'true' || rawOneiroApp === '1';
+
     const next = '/dev-chat';
-    const loginUrl = '/dev-login?next=' + encodeURIComponent(next);
+
+    function buildLoginUrl() {
+      const params = new URLSearchParams();
+      params.set('next', next);
+
+      if (isOneiroApp) {
+        params.set('oneiroapp', 'true');
+      }
+
+      return '/dev-login?' + params.toString();
+    }
 
     function goToLogin() {
-      window.location.replace(loginUrl);
+      window.location.replace(buildLoginUrl());
     }
 
     function fail(message, error) {
@@ -49,6 +63,59 @@
       }
 
       return session;
+    }
+
+    function getSleepsFromApp() {
+      if (!isOneiroApp) {
+        return {
+          raw: '',
+          parsed: [],
+          available: false,
+          error: null,
+        };
+      }
+
+      try {
+        if (!window.OneiroApp || typeof window.OneiroApp.getSleeps !== 'function') {
+          return {
+            raw: '',
+            parsed: [],
+            available: false,
+            error: 'OneiroApp.getSleeps is not available',
+          };
+        }
+
+        const raw = window.OneiroApp.getSleeps() || '';
+
+        const parsed = raw
+          .split('\n')
+          .map(line => line.trim())
+          .filter(Boolean)
+          .map(line => {
+            const [id, startDate, endDate, ...commentParts] = line.split(';');
+            return {
+              id: id || '',
+              startDate: startDate || '',
+              endDate: endDate || '',
+              comment: commentParts.join(';') || '',
+            };
+          });
+
+        return {
+          raw,
+          parsed,
+          available: true,
+          error: null,
+        };
+      } catch (e) {
+        console.error('Ошибка получения снов из приложения', e);
+        return {
+          raw: '',
+          parsed: [],
+          available: false,
+          error: String(e?.message || e || 'unknown error'),
+        };
+      }
     }
 
     const session = await getValidSession();
@@ -95,6 +162,8 @@
       console.warn('Не удалось записать sessionId', e);
     }
 
+    const appSleeps = getSleepsFromApp();
+
     const oneiroUserContext = {
       accessToken,
       authUserId,
@@ -103,6 +172,9 @@
       email: sleepUser.email || email || '',
       limit: sleepUser.limit ?? null,
       projectId: pid,
+      oneiroapp: isOneiroApp,
+      appSleepsAvailable: appSleeps.available,
+      appSleeps: appSleeps.parsed,
     };
 
     window.OneiroUserContext = oneiroUserContext;
@@ -134,6 +206,12 @@
         email: sleepUser.email || email,
         limit: sleepUser.limit,
         token: accessToken,
+        oneiroapp: isOneiroApp,
+
+        app_sleeps_available: appSleeps.available,
+        app_sleeps_error: appSleeps.error,
+        app_sleeps: appSleeps.parsed,
+        app_sleeps_raw: appSleeps.raw,
       },
       showWelcomeScreen: false,
       allowFileUploads: false,
@@ -165,10 +243,8 @@
       }
     }
 
-    // Первичное обновление счетчика после инициализации
     setTimeout(refreshToolbarCounter, 250);
 
-    // Отслеживаем новые сообщения от бота и после них обновляем лимит
     const chatTarget = document.querySelector('#n8n-chat');
 
     if (chatTarget) {
@@ -193,8 +269,8 @@
         const text = (lastBotMessage.textContent || '').trim();
 
         if (!text) return;
-
         if (text === lastBotMessageSignature) return;
+
         lastBotMessageSignature = text;
 
         clearTimeout(refreshTimer);
@@ -220,7 +296,6 @@
         return;
       }
 
-      // если токен обновился — обновим глобальный контекст для тулбара
       if (newSession?.access_token && window.OneiroUserContext) {
         window.OneiroUserContext.accessToken = newSession.access_token;
 

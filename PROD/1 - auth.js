@@ -8,7 +8,7 @@
 
 <script>
 (function () {
-  const SUPABASE_URL = "https://byimggpbeemlrtkzjuyr.supabase.co";
+  const SUPABASE_URL = "https://ivagulin.dedyn.io/supabase";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_2EoT9T3U_4TOal3RJLzA5g_NTHekBX4";
 
   const searchParams = new URLSearchParams(window.location.search);

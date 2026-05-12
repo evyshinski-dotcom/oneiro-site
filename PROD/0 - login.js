@@ -301,7 +301,7 @@ body{
       /> </div> </div> </div> <script>
 (function(){
   const sb = window.supabase.createClient(
-    'https://byimggpbeemlrtkzjuyr.supabase.co',
+    'https://ivagulin.dedyn.io/supabase',
     'sb_publishable_2EoT9T3U_4TOal3RJLzA5g_NTHekBX4',
     {
       auth:{ detectSessionInUrl:true }

@@ -395,7 +395,7 @@ html, body{
     if (window.__oneiroTimeCalcSb) return window.__oneiroTimeCalcSb;
 
     window.__oneiroTimeCalcSb = window.supabase.createClient(
-      'https://byimggpbeemlrtkzjuyr.supabase.co',
+      'https://ivagulin.dedyn.io/supabase',
       'sb_publishable_2EoT9T3U_4TOal3RJLzA5g_NTHekBX4',
       {
         auth: {

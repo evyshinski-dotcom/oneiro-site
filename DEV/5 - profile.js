@@ -1043,7 +1043,7 @@ function setCheckoutLinks() {
 		if (window.__oneiroProfileSb) return window.__oneiroProfileSb;
 
 		window.__oneiroProfileSb = window.supabase.createClient(
-		  'https://mvhojfybibxppyrdgzzc.supabase.co',
+		  'https://ivagulin.dedyn.io/supabase-dev',
 		  'sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF',
 		  {
 			auth: {
@@ -1216,56 +1216,65 @@ function setCheckoutLinks() {
 		els.childrenHint.classList.toggle('op-hidden', !visible);
 	  }
 
-	  function renderTelegramLinkStatus(userInfo) {
-		const els = getEls();
-		if (!els.tgUsernameLine || !els.tgLinkHelp) return;
+function renderTelegramLinkStatus(userInfo) {
+  const els = getEls();
+  if (!els.tgUsernameLine || !els.tgLinkHelp) return;
 
-		const tgLinked =
-		  userInfo?.tg_linked === true ||
-		  String(userInfo?.tg_linked).toLowerCase() === 'true';
+  const tgLinked =
+    userInfo?.tg_linked === true ||
+    String(userInfo?.tg_linked).toLowerCase() === 'true';
 
-		const tgUsernameRaw = userInfo?.tg_username ?? '';
-		const tgUsername = String(tgUsernameRaw).trim().replace(/^@+/, '');
+  const tgUsernameRaw = userInfo?.tg_username ?? '';
+  const tgUsername = String(tgUsernameRaw).trim().replace(/^@+/, '');
 
-		if (tgLinked) {
-		  if (tgUsername) {
-els.tgUsernameLine.innerHTML = `
-  <div class="op-tg-status-row">
-    <span class="op-tg-status-text">Telegram аккаунт: не привязан</span>
-    <a class="op-tg-link-btn" href="/dev-telegram-linkage">
-      <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10" style="display:block;flex:0 0 auto;">
-        <path d="M6.5 1.5 3 5l3.5 3.5"></path>
-      </svg>
-      <span>Привязать</span>
-    </a>
-  </div>
-`;
-		  } else {
-			els.tgUsernameLine.innerHTML = `
-			  <div class="op-tg-status-row">
-				<span class="op-tg-status-text">Telegram аккаунт: привязан</span>
-			  </div>
-			`;
-		  }
+  if (tgLinked) {
+    if (tgUsername) {
+      els.tgUsernameLine.innerHTML = `
+        <div class="op-tg-status-row">
+          <span class="op-tg-status-text">Telegram аккаунт:</span>
+          <a
+            class="op-tg-link-btn"
+            href="https://t.me/${encodeURIComponent(tgUsername)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>@${escapeHtml(tgUsername)}</span>
+            <span class="op-tg-link-arrow" aria-hidden="true">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 1.5 6.5 5 3 8.5"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+      `;
+    } else {
+      els.tgUsernameLine.innerHTML = `
+        <div class="op-tg-status-row">
+          <span class="op-tg-status-text">Telegram аккаунт: привязан</span>
+        </div>
+      `;
+    }
 
-		  els.tgLinkHelp.innerHTML = '';
-		  els.tgLinkHelp.classList.add('op-hidden');
-		  return;
-		}
+    els.tgLinkHelp.innerHTML = '';
+    els.tgLinkHelp.classList.add('op-hidden');
+    return;
+  }
 
-		els.tgUsernameLine.innerHTML = `
-		  <div class="op-tg-status-row">
-			<span class="op-tg-status-text">Telegram аккаунт: не привязан</span>
-			<a class="op-tg-link-btn" href="/dev-telegram-linkage">Привязать</a>
-		  </div>
-		`;
+  els.tgUsernameLine.innerHTML = `
+    <div class="op-tg-status-row">
+      <span class="op-tg-status-text">Telegram аккаунт: не привязан</span>
+      <a class="op-tg-link-btn" href="/dev-telegram-linkage">
+        <span>Привязать</span>
+      </a>
+    </div>
+  `;
 
-		els.tgLinkHelp.innerHTML = `
-		  Привяжите Telegram к аккаунту Онейро, чтобы пользоваться одной подпиской
-		  и на сайте, и в боте — без повторной оплаты и лишних переключений между аккаунтами ✨
-		`;
-		els.tgLinkHelp.classList.remove('op-hidden');
-	  }
+  els.tgLinkHelp.innerHTML = `
+    Привяжите Telegram к аккаунту Онейро, чтобы пользоваться одной подпиской
+    и на сайте, и в боте — без повторной оплаты и лишних переключений между аккаунтами ✨
+  `;
+  els.tgLinkHelp.classList.remove('op-hidden');
+}
 
 	  function setButtonLabel(btn, text, iconSvg) {
 		if (!btn) return;

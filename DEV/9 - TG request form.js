@@ -320,12 +320,15 @@
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
   (function () {
-    const SUPABASE_URL = 'https://mvhojfybibxppyrdgzzc.supabase.co';
+    const SUPABASE_URL = 'https://ivagulin.dedyn.io/supabase-dev';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF';
 
     const WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/dev/oneiro/postTGlinkRequest';
-    const NEXT = '/dev-telegram-linkage';
-    const LOGIN_URL = '/dev-login?next=' + encodeURIComponent(NEXT);
+    const searchParams = new URLSearchParams(window.location.search);
+	const rawOneiroApp = (searchParams.get('oneiroapp') || '').trim().toLowerCase();
+	const isOneiroApp = rawOneiroApp === 'true' || rawOneiroApp === '1';
+
+	const NEXT = '/dev-telegram-linkage';
     const SUBMIT_TIMEOUT_MS = 30000;
 
     const state = {
@@ -375,9 +378,20 @@
       els.error.textContent = message || 'Не удалось загрузить страницу.';
     }
 
-    function redirectToLogin() {
-      window.location.replace(LOGIN_URL);
-    }
+    function buildLoginUrl() {
+  const params = new URLSearchParams();
+  params.set('next', NEXT);
+
+  if (isOneiroApp) {
+    params.set('oneiroapp', 'true');
+  }
+
+  return '/dev-login?' + params.toString();
+}
+
+function redirectToLogin() {
+  window.location.replace(buildLoginUrl());
+}
 
     function setStatus(type, message) {
       els.status.className = 'otl-status' + (type ? ' ' + type : '');

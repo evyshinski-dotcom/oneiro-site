@@ -346,7 +346,7 @@ body{
 <script>
 (function(){
   const sb = window.supabase.createClient(
-    'https://mvhojfybibxppyrdgzzc.supabase.co',
+    'https://ivagulin.dedyn.io/supabase-dev',
     'sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF',
     {
       auth: { detectSessionInUrl: true }

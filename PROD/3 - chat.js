@@ -3,7 +3,7 @@
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
   (async function () {
-    const SUPABASE_URL = 'https://byimggpbeemlrtkzjuyr.supabase.co';
+    const SUPABASE_URL = 'https://ivagulin.dedyn.io/supabase';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_2EoT9T3U_4TOal3RJLzA5g_NTHekBX4';
     const WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/0a7fc554-1d97-4b82-b33e-0bd563f4794c/chat';
 

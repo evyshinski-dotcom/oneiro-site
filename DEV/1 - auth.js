@@ -8,7 +8,7 @@
 
 <script>
 (function () {
-  const SUPABASE_URL = "https://mvhojfybibxppyrdgzzc.supabase.co";
+  const SUPABASE_URL = "https://ivagulin.dedyn.io/supabase-dev";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF";
 
   const searchParams = new URLSearchParams(window.location.search);
@@ -68,6 +68,7 @@
 
       showPage();
     } catch (e) {
+      console.error('Auth error:', e.message, e);
       redirectToLogin();
     }
   });
