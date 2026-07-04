@@ -1,5 +1,4 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 html, body{
@@ -249,6 +248,37 @@ body{
   color:#5f5f69;
 }
 
+.oneiro-preloader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e9e9ec;
+  transition:opacity .35s ease, visibility .35s ease;
+}
+
+.oneiro-preloader.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.oneiro-preloader-text{
+  font-family:'TildaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size:18px;
+  line-height:1.4;
+  font-weight:500;
+  color:#33206f;
+  animation:oneiro-pulse 1.25s ease-in-out infinite;
+}
+
+@keyframes oneiro-pulse{
+  0%, 100% { opacity:.35; transform:scale(.98); }
+  50% { opacity:1; transform:scale(1); }
+}
+
 @media (max-width: 700px){
   .oneiro-login-page{
     padding:14px;
@@ -292,6 +322,10 @@ body{
 }
 </style>
 
+<div id="oneiro-preloader" class="oneiro-preloader">
+  <div class="oneiro-preloader-text">Онейро загружается...</div>
+</div>
+
 <div class="oneiro-login-page">
   <div class="oneiro-login-shell">
     <div class="oneiro-login-card">
@@ -326,9 +360,9 @@ body{
 
         <div class="oneiro-login-legal">
           Регистрируясь в системе, вы соглашаетесь с условиями
-          <a href="http://oneiro-mom.ru/privacy" target="_blank">политики конфиденциальности</a>
+          <a href="https://oneiro-mom.ru/privacy" target="_blank">политики конфиденциальности</a>
           и
-          <a href="http://oneiro-mom.ru/user-terms" target="_blank">пользовательского соглашения</a>.
+          <a href="https://oneiro-mom.ru/user-terms" target="_blank">пользовательского соглашения</a>.
         </div>
       </div>
     </div>
@@ -342,7 +376,7 @@ body{
     </div>
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
   const sb = window.supabase.createClient(
@@ -395,6 +429,56 @@ body{
 
     return webLoginUrl;
   }
+  
+function getEmailProviderUrl(email){
+  const domain = (email.split('@')[1] || '').trim().toLowerCase();
+
+  const providers = {
+    'mail.ru': 'https://e.mail.ru/inbox/',
+    'list.ru': 'https://e.mail.ru/inbox/',
+    'bk.ru': 'https://e.mail.ru/inbox/',
+
+    'gmail.com': 'https://mail.google.com/mail/u/0/#inbox',
+
+    'yandex.ru': 'https://mail.yandex.ru/',
+    'ya.ru': 'https://mail.yandex.ru/',
+
+    'icloud.com': 'https://www.icloud.com/mail/'
+  };
+
+  const webMailUrl = providers[domain];
+
+  // Для приложения всегда отдаем ссылку
+  if (isOneiroApp) {
+    return 'mailapp:' + (webMailUrl || '');
+  }
+
+  // Для браузера только для известных провайдеров
+  return webMailUrl || null;
+}
+
+function showSuccessMessage(email){
+  const mailUrl = getEmailProviderUrl(email);
+
+  if (!mailUrl) {
+    showMessage('Письмо отправлено ✨ Проверьте почту', 'success');
+    return;
+  }
+
+  showHtmlMessage(
+  'Письмо отправлено ✨ <a class="oneiro-login-mail-link" href="' + mailUrl + '">Открыть почту</a>',
+  'success'
+);
+}
+
+function showHtmlMessage(html, state){
+  if (!message) return;
+  message.innerHTML = html || '';
+  message.classList.remove('is-error', 'is-success', 'is-loading');
+  if (state) {
+    message.classList.add('is-' + state);
+  }
+}
 
   async function sendMagicLink(){
     const email = (emailInput && emailInput.value ? emailInput.value : '').trim();
@@ -425,7 +509,7 @@ body{
         return;
       }
 
-      showMessage('Письмо отправлено ✨ Проверьте почту', 'success');
+      showSuccessMessage(email);
     } catch (e) {
       showMessage('Не удалось отправить письмо', 'error');
     } finally {
@@ -460,5 +544,21 @@ body{
   }
 
   checkSession();
+  
+  function hidePreloader(){
+  const preloader = document.getElementById('oneiro-preloader');
+  if (preloader) {
+    preloader.classList.add('is-hidden');
+    setTimeout(function(){
+      preloader.remove();
+    }, 500);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', hidePreloader);
+} else {
+  hidePreloader();
+}
 })();
 </script>

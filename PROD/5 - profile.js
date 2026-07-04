@@ -40,7 +40,7 @@
 
 	#oneiro-profile-popup .op-wrap{
 	  width:100%;
-	  max-width:520px;
+	  max-width:480px;
 	  min-height:100%;
 	  margin:0 auto;
 	  padding:12px 10px 14px;
@@ -49,9 +49,9 @@
 
 	#oneiro-profile-popup .op-card{
 	  background:#fbfbfc;
-	  border-radius:22px;
-	  padding:18px 20px;
-	  margin-bottom:14px;
+	  border-radius:20px;
+	  padding:14px 18px;
+	  margin-bottom:12px;
 	}
 
 	#oneiro-profile-popup .op-card:last-child{
@@ -61,7 +61,7 @@
 	#oneiro-profile-popup .op-section-title{
 	  font-size:16px;
 	  font-weight:500;
-	  margin-bottom:18px;
+	  margin-bottom:12px;
 	}
 
 	#oneiro-profile-popup .op-status-row{
@@ -70,7 +70,7 @@
 	  gap:8px;
 	  font-size:16px;
 	  font-weight:500;
-	  margin-bottom:18px;
+	  margin-bottom:12px;
 	}
 
 	#oneiro-profile-popup .op-dot{
@@ -96,8 +96,8 @@
 	#oneiro-profile-popup .op-line{
 	  font-size:14px;
 	  line-height:1.4;
-	  padding:0 0 8px;
-	  margin:0 0 8px;
+	  padding:0 0 7px;
+	  margin:0 0 7px;
 	  border-bottom:1px solid #e3e6f0;
 	  word-break:break-word;
 	}
@@ -109,11 +109,11 @@
 	}
 
 	#oneiro-profile-popup .op-bottom{
-	  margin-top:16px;
+	  margin-top:12px;
 	  display:flex;
 	  justify-content:flex-end;
 	  align-items:center;
-	  gap:10px;
+	  gap:12px;
 	}
 
 	#oneiro-profile-popup .op-action-btn{
@@ -121,8 +121,8 @@
 	  align-items:center;
 	  justify-content:center;
 	  gap:8px;
-	  min-height:38px;
-	  padding:0 16px;
+	  min-height:36px;
+	  padding:0 14px;
 	  border-radius:999px;
 	  background:#f3f5fb;
 	  color:#2d2f45;
@@ -168,10 +168,110 @@
 	  line-height:1;
 	}
 
+	#oneiro-profile-popup .op-sub-actions{
+	  flex-direction:column;
+	  align-items:flex-end;
+	}
+
+	#oneiro-profile-popup .op-sub-body{
+	  display:grid;
+	  grid-template-columns:minmax(0, 1fr) 208px;
+	  gap:18px;
+	  align-items:start;
+	}
+
+	#oneiro-profile-popup .op-info-sub{
+	  margin-left:18px;
+	}
+
+	#oneiro-profile-popup .op-sub-actions .op-action-btn{
+	  width:208px;
+	}
+
+	
+
+	#oneiro-profile-popup .op-sub-actions #op-buy-btn{
+	  background:#2A195B;
+	  color:#fff;
+	}
+
+	#oneiro-profile-popup .op-sub-actions #op-buy-btn:hover{
+	  background:#382678;
+	}
+
+	#oneiro-profile-popup .op-sub-actions #op-activate-cert-btn{
+	  background:#f3f5fb;
+	  color:#2d2f45;
+	  border:1px solid rgba(42,25,91,.06);
+	}
+
+	#oneiro-profile-popup .op-certificate-form{
+  width:100%;
+  margin:14px 0 0;
+  padding:12px 0 0;
+  background:transparent;
+  border:none;
+  border-top:1px solid #e3e6f0;
+	  padding:0;
+	  background:transparent;
+	  border:none;
+	}
+
+	
+
+	#oneiro-profile-popup .op-certificate-label{
+	  margin:0 0 6px;
+	  font-size:12px;
+	  line-height:1.35;
+	  color:#7a8197;
+	}
+
+	#oneiro-profile-popup .op-certificate-field{
+	  width:100%;
+	  height:38px;
+	  padding:0 13px;
+	  border-radius:14px;
+	  border:1px solid #d9deeb;
+	  background:#fff;
+	  color:#111;
+	  font-size:14px;
+	  outline:none;
+	}
+
+	#oneiro-profile-popup .op-certificate-field:focus{
+	  border-color:#bfc8e3;
+	  box-shadow:0 0 0 3px rgba(191,200,227,.18);
+	}
+
+	#oneiro-profile-popup .op-certificate-actions{
+	  margin-top:10px;
+	  display:flex;
+	  justify-content:flex-end;
+	}
+
+#oneiro-profile-popup .op-certificate-actions .op-action-btn{
+  width:100%;
+}
+
+	#oneiro-profile-popup .op-certificate-note{
+	  margin-top:10px;
+	  font-size:12px;
+	  line-height:1.45;
+	  color:#7a8197;
+	}
+
+	#oneiro-profile-popup .op-certificate-note.is-error{
+	  color:#b24c63;
+	}
+
+	#oneiro-profile-popup .op-certificate-note.is-success{
+	  color:#281561;
+	}
+
 	#oneiro-profile-popup .op-children-title{
 	  font-size:16px;
 	  font-weight:500;
-	  margin-bottom:14px;
+	  margin-bottom:12px;
 	}
 
 	#oneiro-profile-popup .op-child{
@@ -270,6 +370,25 @@
 	  #oneiro-profile-popup .op-action-btn{
 		max-width:100%;
 	  }
+
+	  #oneiro-profile-popup .op-sub-actions{
+		align-items:stretch;
+	  }
+
+	  #oneiro-profile-popup .op-sub-body{
+		grid-template-columns:1fr;
+		gap:12px;
+	  }
+
+	  #oneiro-profile-popup .op-certificate-form{
+		width:100%;
+		margin-left:0;
+	  }
+
+	  #oneiro-profile-popup .op-sub-actions .op-action-btn,
+	  #oneiro-profile-popup .op-certificate-actions .op-action-btn{
+		width:100%;
+	  }
 	}
 	</style>
 
@@ -331,17 +450,40 @@
 			<span id="op-sub-title">Загрузка...</span>
 		  </div>
 
-		  <div class="op-info">
-			<div class="op-line" id="op-limit-line">Осталось сообщений: —</div>
-			<div class="op-line" id="op-valid-till-line">Действует до: —</div>
-			<div class="op-line" id="op-recurrent-line">Автопродление: —</div>
+		  <div class="op-sub-body">
+			<div class="op-info op-info-sub">
+			  <div class="op-line" id="op-limit-line">Осталось сообщений: —</div>
+			  <div class="op-line" id="op-valid-till-line">Действует до: —</div>
+			  <div class="op-line" id="op-recurrent-line">Автопродление: —</div>
+			</div>
+
+			<div class="op-bottom op-sub-actions">
+			  <a class="op-action-btn" id="op-buy-btn" href="/checkout">
+				<span class="op-buy-star">★</span>
+				<span id="op-buy-btn-text">Подписка на месяц – 550 ₽</span>
+			  </a>
+			  <button class="op-action-btn" id="op-activate-cert-btn" type="button">
+			  <span class="op-btn-icon" aria-hidden="true">
+				<svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+				  <path d="M20 12v8H4v-8"></path>
+				  <path d="M2 7h20v5H2z"></path>
+				  <path d="M12 7v13"></path>
+				  <path d="M12 7H8.5A2.5 2.5 0 1 1 12 3.5V7Z"></path>
+				  <path d="M12 7h3.5A2.5 2.5 0 1 0 12 3.5V7Z"></path>
+				</svg>
+			  </span>
+			  <span>Активировать сертификат</span>
+			</button>
+			</div>
 		  </div>
 
-		  <div class="op-bottom">
-			<a class="op-action-btn" id="op-buy-btn" href="/checkout">
-			  <span class="op-buy-star">★</span>
-			  <span id="op-buy-btn-text">Подписка на месяц – 550 ₽</span>
-			</a>
+		  <div class="op-certificate-form op-hidden" id="op-certificate-form">
+			<div class="op-certificate-label">Код сертификата</div>
+			<input class="op-certificate-field" id="op-certificate-code-input" type="text" placeholder="Введите код сертификата" autocomplete="one-time-code">
+			<div class="op-certificate-actions">
+			  <button class="op-action-btn" id="op-certificate-submit-btn" type="button">Активировать</button>
+			</div>
+			<div class="op-certificate-note op-hidden" id="op-certificate-note"></div>
 		  </div>
 		</div>
 
@@ -353,10 +495,12 @@
 	  const PROFILE_WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/oneiro/getUserInfo';
 	  const UPDATE_CHILDREN_WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/oneiro/updateBabyInfo';
 	  const CANCEL_AUTORENEW_WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/oneiro/cancelAutorenew';
+	  const ACTIVATE_CERTIFICATE_WEBHOOK_URL = 'https://ivagulin.dedyn.io/webhook/oneiro/activateCertificate';
 	  const SAVE_TIMEOUT_MS = 30000;
 	  const LOGIN_PAGE_PATH = '/login';
 	  const CHILDREN_SAVE_GENERIC_ERROR = 'К сожалению, в настоящий момент не удается обновить информацию о ваших малышах. Попробуйте еще раз позже';
 	  const CANCEL_AUTORENEW_SUCCESS_MESSAGE = 'Автопродление подписки остановлено, новые списания производиться не будут. Доступ к Oneiro сохранится до конца текущего оплаченного периода.';
+	  const ACTIVATE_CERTIFICATE_SUCCESS_MESSAGE = 'Сертификат активирован. Подписка обновлена 💜';
 
 	  const ROOT_ID = 'oneiro-profile-popup';
 	  const STYLE_ID = 'oneiro-profile-popup-style';
@@ -368,6 +512,7 @@
 		savingChildren: false,
 		loggingOut: false,
 		cancelingAutorenew: false,
+		activatingCertificate: false,
 		sessionData: null,
 		currentProfile: null,
 		lastRenderedChildrenText: '',
@@ -378,9 +523,10 @@
 		(document.currentScript && document.currentScript.parentElement) ||
 		document.body;
 
-	  injectStyles();
-	  renderMarkup();
-	  init();
+injectStyles();
+renderMarkup();
+init();
+
 
 	  function injectStyles() {
 		if (document.getElementById(STYLE_ID)) return;
@@ -422,7 +568,7 @@
 
 		  #${ROOT_ID} .op-wrap{
 			width:100%;
-			max-width:520px;
+			max-width:480px;
 			min-height:100%;
 			margin:0 auto;
 			padding:12px 10px 14px;
@@ -431,9 +577,9 @@
 
 		  #${ROOT_ID} .op-card{
 			background:#fbfbfc;
-			border-radius:22px;
-			padding:18px 20px;
-			margin-bottom:14px;
+			border-radius:20px;
+			padding:14px 18px;
+			margin-bottom:12px;
 		  }
 
 		  #${ROOT_ID} .op-card:last-child{
@@ -444,11 +590,11 @@
 		  #${ROOT_ID} .op-children-title{
 			font-size:16px;
 			font-weight:500;
-			margin-bottom:18px;
+			margin-bottom:12px;
 		  }
 
 		  #${ROOT_ID} .op-children-title{
-			margin-bottom:14px;
+			margin-bottom:12px;
 		  }
 
 		  #${ROOT_ID} .op-status-row{
@@ -457,7 +603,7 @@
 			gap:8px;
 			font-size:16px;
 			font-weight:500;
-			margin-bottom:18px;
+			margin-bottom:12px;
 		  }
 
 		  #${ROOT_ID} .op-dot{
@@ -483,8 +629,8 @@
 		  #${ROOT_ID} .op-line{
 			font-size:14px;
 			line-height:1.4;
-			padding:0 0 8px;
-			margin:0 0 8px;
+			padding:0 0 7px;
+			margin:0 0 7px;
 			border-bottom:1px solid #e3e6f0;
 			word-break:break-word;
 		  }
@@ -496,11 +642,11 @@
 		  }
 
 		  #${ROOT_ID} .op-bottom{
-			margin-top:16px;
+			margin-top:12px;
 			display:flex;
 			justify-content:flex-end;
 			align-items:center;
-			gap:10px;
+			gap:12px;
 		  }
 
 		  #${ROOT_ID} .op-action-btn{
@@ -508,8 +654,8 @@
 			align-items:center;
 			justify-content:center;
 			gap:8px;
-			min-height:38px;
-			padding:0 16px;
+			min-height:36px;
+			padding:0 14px;
 			border-radius:999px;
 			background:#f3f5fb;
 			color:#2d2f45;
@@ -552,6 +698,103 @@
 		  #${ROOT_ID} .op-buy-star{
 			font-size:14px;
 			line-height:1;
+		  }
+
+		  #${ROOT_ID} .op-sub-actions{
+			flex-direction:column;
+			align-items:flex-end;
+		  }
+
+		  #${ROOT_ID} .op-sub-body{
+			display:grid;
+			grid-template-columns:minmax(0, 1fr) 208px;
+			gap:18px;
+			align-items:start;
+		  }
+
+		  #${ROOT_ID} .op-info-sub{
+			margin-left:18px;
+		  }
+
+		  #${ROOT_ID} .op-sub-actions .op-action-btn{
+			width:208px;
+		  }
+
+		  
+
+		  #${ROOT_ID} .op-sub-actions #op-buy-btn{
+			background:#2A195B;
+			color:#fff;
+		  }
+
+		  #${ROOT_ID} .op-sub-actions #op-buy-btn:hover{
+			background:#382678;
+		  }
+
+		  #${ROOT_ID} .op-sub-actions #op-activate-cert-btn{
+			background:#f3f5fb;
+			color:#2d2f45;
+			border:1px solid rgba(42,25,91,.06);
+		  }
+
+		  #${ROOT_ID} .op-certificate-form{
+			width:300px;
+			max-width:100%;
+			margin:10px 0 0 auto;
+			padding:0;
+			background:transparent;
+			border:none;
+		  }
+
+		  
+
+		  #${ROOT_ID} .op-certificate-label{
+			margin:0 0 6px;
+			font-size:12px;
+			line-height:1.35;
+			color:#7a8197;
+		  }
+
+		  #${ROOT_ID} .op-certificate-field{
+			width:100%;
+			height:38px;
+			padding:0 13px;
+			border-radius:14px;
+			border:1px solid #d9deeb;
+			background:#fff;
+			color:#111;
+			font-size:14px;
+			outline:none;
+		  }
+
+		  #${ROOT_ID} .op-certificate-field:focus{
+			border-color:#bfc8e3;
+			box-shadow:0 0 0 3px rgba(191,200,227,.18);
+		  }
+
+		  #${ROOT_ID} .op-certificate-actions{
+			margin-top:10px;
+			display:flex;
+			justify-content:flex-end;
+		  }
+
+		  #${ROOT_ID} .op-certificate-actions .op-action-btn{
+			width:172px;
+		  }
+
+		  #${ROOT_ID} .op-certificate-note{
+			margin-top:10px;
+			font-size:12px;
+			line-height:1.45;
+			color:#7a8197;
+		  }
+
+		  #${ROOT_ID} .op-certificate-note.is-error{
+			color:#b24c63;
+		  }
+
+		  #${ROOT_ID} .op-certificate-note.is-success{
+			color:#281561;
 		  }
 
 		  #${ROOT_ID} .op-child{
@@ -748,6 +991,25 @@
 			#${ROOT_ID} .op-action-btn{
 			  max-width:100%;
 			}
+
+			#${ROOT_ID} .op-sub-actions{
+			  align-items:stretch;
+			}
+
+			#${ROOT_ID} .op-sub-body{
+			  grid-template-columns:1fr;
+			  gap:12px;
+			}
+
+			#${ROOT_ID} .op-certificate-form{
+			  width:100%;
+			  margin-left:0;
+			}
+
+			#${ROOT_ID} .op-sub-actions .op-action-btn,
+			#${ROOT_ID} .op-certificate-actions .op-action-btn{
+			  width:100%;
+			}
 		  }
 		`;
 		document.head.appendChild(style);
@@ -810,56 +1072,77 @@
 				<span id="op-sub-title">Загрузка...</span>
 			  </div>
 
-			  <div class="op-info">
-				<div class="op-line" id="op-limit-line">Осталось сообщений: —</div>
-				<div class="op-line" id="op-valid-till-line">Действует до: —</div>
-				<div class="op-line" id="op-recurrent-line">
-				  <div class="op-inline-row">
-					<span class="op-inline-row-text" id="op-recurrent-text">Автопродление: —</span>
-					<button
-					  class="op-inline-x-btn op-hidden"
-					  id="op-cancel-autorenew-btn"
-					  type="button"
-					  aria-label="Отменить автопродление"
-					  title="Отменить автопродление"
-					>×</button>
+			  <div class="op-sub-body">
+				<div class="op-info op-info-sub">
+				  <div class="op-line" id="op-limit-line">Осталось сообщений: —</div>
+				  <div class="op-line" id="op-valid-till-line">Действует до: —</div>
+				  <div class="op-line" id="op-recurrent-line">
+					<div class="op-inline-row">
+					  <span class="op-inline-row-text" id="op-recurrent-text">Автопродление: —</span>
+					  <button
+						class="op-inline-x-btn op-hidden"
+						id="op-cancel-autorenew-btn"
+						type="button"
+						aria-label="Отменить автопродление"
+						title="Отменить автопродление"
+					  >×</button>
+					</div>
 				  </div>
+				</div>
+
+				<div class="op-bottom op-sub-actions">
+				  <a class="op-action-btn" id="op-buy-btn" href="/checkout">
+					<span class="op-buy-star">★</span>
+					<span id="op-buy-btn-text">Подписка на месяц – 550 ₽</span>
+				  </a>
+				  <button class="op-action-btn" id="op-activate-cert-btn" type="button">
+				  <span class="op-btn-icon" aria-hidden="true">${getGiftIconSvg()}</span>
+				  <span>Активировать сертификат</span>
+				</button>
 				</div>
 			  </div>
 
 			  <div class="op-inline-note op-hidden" id="op-subscription-note"></div>
 
-			  <div class="op-bottom">
-				<a class="op-action-btn" id="op-buy-btn" href="/checkout">
-				  <span class="op-buy-star">★</span>
-				  <span id="op-buy-btn-text">Подписка на месяц – 550 ₽</span>
-				</a>
+			  <div class="op-certificate-form op-hidden" id="op-certificate-form">
+				<div class="op-certificate-label">Код сертификата</div>
+				<input class="op-certificate-field" id="op-certificate-code-input" type="text" placeholder="Введите код сертификата" autocomplete="one-time-code">
+				<div class="op-certificate-actions">
+				  <button class="op-action-btn" id="op-certificate-submit-btn" type="button">Активировать</button>
+				</div>
+				<div class="op-certificate-note op-hidden" id="op-certificate-note"></div>
 			  </div>
 			</div>
 		  </div>
 		`;
 	  }
 	  
-	  	  function buildCheckoutUrl() {
-		const current = new URL(window.location.href);
-		const checkout = new URL('/checkout', window.location.origin);
+function buildCheckoutUrl() {
+  const current = new URL(window.location.href);
+  const checkout = new URL('/checkout', window.location.origin);
 
-		const keysToKeep = [
-		'yclid',
-		'yrclid',
-		'ybaip',
-		'utm_source',
-		'utm_medium',
-		'utm_campaign',
-		'utm_content',
-		'utm_term'
-	];
+  const keysToKeep = [
+    'yclid',
+    'yrclid',
+    'ybaip',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term'
+  ];
 
   for (const key of keysToKeep) {
     const value = current.searchParams.get(key);
     if (value) {
       checkout.searchParams.set(key, value);
     }
+  }
+
+  const rawOneiroApp = (current.searchParams.get('oneiroapp') || '').trim().toLowerCase();
+
+  if (rawOneiroApp === 'true' || rawOneiroApp === '1') {
+    checkout.searchParams.set('oneiroapp', 'true');
   }
 
   return checkout.pathname + checkout.search;
@@ -876,6 +1159,7 @@ function setCheckoutLinks() {
 		setPopupViewportHeight();
 		bindHeightObservers();
 		bindChildrenEditing();
+		bindCertificateActivation();
 		bindProfilePopupOpen();
 		bindHashFallback();
 		setCheckoutLinks();
@@ -911,7 +1195,12 @@ function setCheckoutLinks() {
 		  editChildrenBtn: document.getElementById('op-edit-children-btn'),
 		  logoutBtn: document.getElementById('op-logout-btn'),
 		  buyBtnText: document.getElementById('op-buy-btn-text'),
-		  buyBtn: document.getElementById('op-buy-btn')
+		  buyBtn: document.getElementById('op-buy-btn'),
+		  activateCertBtn: document.getElementById('op-activate-cert-btn'),
+		  certificateForm: document.getElementById('op-certificate-form'),
+		  certificateCodeInput: document.getElementById('op-certificate-code-input'),
+		  certificateSubmitBtn: document.getElementById('op-certificate-submit-btn'),
+		  certificateNote: document.getElementById('op-certificate-note')
 		};
 	  }
 
@@ -931,6 +1220,11 @@ function setCheckoutLinks() {
 		  els.recurrentText &&
 		  els.cancelAutorenewBtn &&
 		  els.subscriptionNote &&
+		  els.activateCertBtn &&
+		  els.certificateForm &&
+		  els.certificateCodeInput &&
+		  els.certificateSubmitBtn &&
+		  els.certificateNote &&
 		  els.childrenList &&
 		  els.childrenHint &&
 		  els.childrenNote &&
@@ -1193,6 +1487,24 @@ function setCheckoutLinks() {
 		els.subscriptionNote.classList.toggle('is-success', type === 'success');
 	  }
 
+
+	  function showCertificateNote(text, type) {
+		const els = getEls();
+		if (!els.certificateNote) return;
+
+		if (!text) {
+		  els.certificateNote.textContent = '';
+		  els.certificateNote.classList.add('op-hidden');
+		  els.certificateNote.classList.remove('is-error', 'is-success');
+		  return;
+		}
+
+		els.certificateNote.textContent = text;
+		els.certificateNote.classList.remove('op-hidden');
+		els.certificateNote.classList.toggle('is-error', type === 'error');
+		els.certificateNote.classList.toggle('is-success', type === 'success');
+	  }
+
 	  function showChildrenHint(visible) {
 		const els = getEls();
 		if (!els.childrenHint) return;
@@ -1288,6 +1600,15 @@ function renderTelegramLinkStatus(userInfo) {
 		els.cancelAutorenewBtn.classList.add('op-hidden');
 		els.cancelAutorenewBtn.disabled = false;
 		els.cancelAutorenewBtn.textContent = '×';
+
+		if (els.certificateForm) els.certificateForm.classList.add('op-hidden');
+		if (els.certificateCodeInput) els.certificateCodeInput.value = '';
+		if (els.certificateSubmitBtn) els.certificateSubmitBtn.disabled = false;
+		if (els.activateCertBtn) {
+		  els.activateCertBtn.disabled = false;
+		  setButtonLabel(els.activateCertBtn, 'Активировать сертификат', getGiftIconSvg());
+		}
+		showCertificateNote('');
 
 		els.childrenList.classList.remove('is-editing', 'is-saving');
 		els.childrenList.removeAttribute('contenteditable');
@@ -1390,6 +1711,10 @@ function renderTelegramLinkStatus(userInfo) {
 		}
 
 		els.buyBtnText.textContent = hasSubscription ? 'Расширить подписку' : 'Купить подписку';
+		if (els.activateCertBtn) {
+		  els.activateCertBtn.disabled = false;
+		  setButtonLabel(els.activateCertBtn, 'Активировать сертификат', getGiftIconSvg());
+		}
 
 		renderChildrenReadonlyFromText(getChildrenTextFromProfile(data));
 		showChildrenHint(false);
@@ -1689,7 +2014,131 @@ function renderTelegramLinkStatus(userInfo) {
 		}
 	  }
 
-	  async function logoutUser() {
+	  
+	  function toggleCertificateForm(show) {
+		const els = getEls();
+		if (!els.certificateForm || !els.certificateCodeInput) return;
+
+		const shouldShow = typeof show === 'boolean' ? show : els.certificateForm.classList.contains('op-hidden');
+		els.certificateForm.classList.toggle('op-hidden', !shouldShow);
+		showCertificateNote('');
+
+		if (shouldShow) {
+		  setTimeout(() => {
+			els.certificateCodeInput.focus();
+			setPopupViewportHeight();
+		  }, 0);
+		} else {
+		  els.certificateCodeInput.value = '';
+		  setTimeout(setPopupViewportHeight, 0);
+		}
+	  }
+
+	  async function activateCertificate() {
+		const els = getEls();
+		if (state.activatingCertificate || !els.certificateCodeInput) return;
+
+		const certificateCode = String(els.certificateCodeInput.value || '').trim();
+
+		if (!certificateCode) {
+		  showCertificateNote('Введите код сертификата', 'error');
+		  els.certificateCodeInput.focus();
+		  return;
+		}
+
+		state.activatingCertificate = true;
+		showCertificateNote('Активируем сертификат...');
+
+		if (els.activateCertBtn) els.activateCertBtn.disabled = true;
+		if (els.certificateSubmitBtn) {
+		  els.certificateSubmitBtn.disabled = true;
+		  setButtonLabel(els.certificateSubmitBtn, 'Активируем...', getGiftIconSvg());
+		}
+
+		try {
+		  const sessionData = await getSessionData(true);
+
+		  const payload = {
+			tg_userid: sessionData.tg_userid,
+			email: sessionData.email,
+			token: sessionData.token,
+			certificate_code: certificateCode,
+			code: certificateCode
+		  };
+
+		  const response = await fetchWithTimeout(
+			ACTIVATE_CERTIFICATE_WEBHOOK_URL,
+			{
+			  method: 'POST',
+			  headers: {
+				'Content-Type': 'application/json',
+				tg_userid: sessionData.tg_userid,
+				email: sessionData.email,
+				token: sessionData.token
+			  },
+			  body: JSON.stringify(payload)
+			},
+			SAVE_TIMEOUT_MS
+		  );
+
+		  const responseText = await response.text();
+
+		  if (!response.ok) {
+			throw new Error(extractWebhookErrorMessage(responseText, response.status));
+		  }
+
+		  const parsed = tryParseJson(responseText);
+
+		 if (!parsed) {
+  throw new Error('Что-то пошло не так 😔 Попробуйте еще раз чуть позже.');
+}
+
+const result = Array.isArray(parsed) ? parsed[0] : parsed;
+
+if (
+  result.success !== true ||
+  result.error_message ||
+  result.error ||
+  result.message === 'error'
+) {
+  throw new Error(
+    result.error_message ||
+    result.error ||
+    result.message ||
+    'Не удалось активировать сертификат'
+  );
+}
+
+		  if (els.certificateCodeInput) els.certificateCodeInput.value = '';
+		  toggleCertificateForm(false);
+
+		  state.loadedOnce = false;
+		  await loadProfile(true);
+		  showSubscriptionNote(ACTIVATE_CERTIFICATE_SUCCESS_MESSAGE, 'success');
+		} catch (e) {
+		  console.error('[oneiro-profile] Ошибка активации сертификата', e);
+
+		  showCertificateNote(
+			e && e.name === 'AbortError'
+			  ? 'Сервер отвечает слишком долго. Попробуйте ещё раз.'
+			  : (e?.message || 'Не удалось активировать сертификат. Проверьте код и попробуйте ещё раз.'),
+			'error'
+		  );
+		} finally {
+		  state.activatingCertificate = false;
+		  if (els.activateCertBtn) {
+			els.activateCertBtn.disabled = false;
+			setButtonLabel(els.activateCertBtn, 'Активировать сертификат', getGiftIconSvg());
+		  }
+		  if (els.certificateSubmitBtn) {
+			els.certificateSubmitBtn.disabled = false;
+			setButtonLabel(els.certificateSubmitBtn, 'Активировать', null);
+		  }
+		  setTimeout(setPopupViewportHeight, 0);
+		}
+	  }
+
+async function logoutUser() {
 		const els = getEls();
 		if (state.loggingOut) return;
 
@@ -1709,8 +2158,19 @@ function renderTelegramLinkStatus(userInfo) {
 		  state.savingChildren = false;
 		  state.lastRenderedChildrenText = '';
 
-		  const next = encodeURIComponent(window.location.pathname + window.location.search);
-		  window.location.href = `${LOGIN_PAGE_PATH}?next=${next}`;
+		  const currentUrl = new URL(window.location.href);
+		  const next = currentUrl.pathname + currentUrl.search;
+		  const loginParams = new URLSearchParams();
+		  loginParams.set('next', next);
+		  
+		  const rawOneiroApp = (currentUrl.searchParams.get('oneiroapp') || '').trim().toLowerCase();
+		  const isOneiroApp = rawOneiroApp === 'true' || rawOneiroApp === '1';
+		  
+		  if (isOneiroApp) {
+		  loginParams.set('oneiroapp', 'true');
+		  }
+
+window.location.href = `${LOGIN_PAGE_PATH}?${loginParams.toString()}`;
 		} catch (e) {
 		  console.error('[oneiro-profile] Ошибка при выходе', e);
 		  els.logoutBtn.disabled = false;
@@ -1794,7 +2254,38 @@ function renderTelegramLinkStatus(userInfo) {
 		}
 	  }
 
-	  function bindChildrenEditing() {
+	  
+	  function bindCertificateActivation() {
+		document.addEventListener('click', function(e) {
+		  const activateBtn = e.target.closest('#op-activate-cert-btn');
+		  if (activateBtn) {
+			e.preventDefault();
+			e.stopPropagation();
+			if (state.activatingCertificate) return;
+			toggleCertificateForm();
+			return;
+		  }
+
+		  const submitBtn = e.target.closest('#op-certificate-submit-btn');
+		  if (submitBtn) {
+			e.preventDefault();
+			e.stopPropagation();
+			activateCertificate();
+		  }
+		}, true);
+
+		document.addEventListener('keydown', function(e) {
+		  const els = getEls();
+		  if (!els.certificateCodeInput || document.activeElement !== els.certificateCodeInput) return;
+
+		  if (e.key === 'Enter') {
+			e.preventDefault();
+			activateCertificate();
+		  }
+		});
+	  }
+
+function bindChildrenEditing() {
 		document.addEventListener('click', function (e) {
 		  const els = getEls();
 		  if (!els.editChildrenBtn || !els.childrenList) return;
@@ -1895,7 +2386,20 @@ function renderTelegramLinkStatus(userInfo) {
 		`;
 	  }
 
-	  function getLogoutIconSvg() {
+	  
+	  function getGiftIconSvg() {
+		return `
+		  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M20 12v8H4v-8"></path>
+			<path d="M2 7h20v5H2z"></path>
+			<path d="M12 7v13"></path>
+			<path d="M12 7H8.5A2.5 2.5 0 1 1 12 3.5V7Z"></path>
+			<path d="M12 7h3.5A2.5 2.5 0 1 0 12 3.5V7Z"></path>
+		  </svg>
+		`;
+	  }
+
+function getLogoutIconSvg() {
 		return `
 		  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
 			<path d="M14 7V5.5C14 4.12 12.88 3 11.5 3h-5A2.5 2.5 0 0 0 4 5.5v13A2.5 2.5 0 0 0 6.5 21h5A2.5 2.5 0 0 0 14 18.5V17"></path>
