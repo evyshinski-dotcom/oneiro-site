@@ -1395,46 +1395,57 @@ function validateSchedule() {
   };
 }
 
- function buildGiftCheckoutUrl() {
+function buildGiftCheckoutUrl() {
   const plan = getSelectedPlan();
 
   const recipientEmail = recipientEmailInput?.value.trim() || '';
-const receiptEmail = receiptSameInput.checked
-  ? recipientEmail
-  : (receiptEmailInput?.value.trim() || '');
+  const receiptEmail = receiptSameInput.checked
+    ? recipientEmail
+    : (receiptEmailInput?.value.trim() || '');
 
   const isScheduled = scheduleEnabled.checked;
   const sendDate = isScheduled ? sendDateInput.value : '';
   const sendTime = isScheduled ? sendTimeInput.value : '';
   const sendTimezone = isScheduled ? timezoneSelect.value : '';
-  const sendUtc = isScheduled && sendDate && sendTime && sendTimezone
-    ? zonedDateTimeToUtc(sendDate, sendTime, sendTimezone).toISOString()
-    : '';
+
+  const sendUtc =
+    isScheduled && sendDate && sendTime && sendTimezone
+      ? zonedDateTimeToUtc(
+          sendDate,
+          sendTime,
+          sendTimezone
+        ).toISOString()
+      : '';
 
   const momName = nameInput.value.trim();
   const fromName = fromInput.value.trim();
   const message = messageInput.value.trim();
 
-  const params = new URLSearchParams({
-    product: 'gift_certificate',
-    plan: plan.title,
-period: plan.periodDays,
-price: plan.price,
-requests: plan.requests,
-requests_label: plan.requestsText,
-    recipient_email: recipientEmail,
-    receipt_email: receiptEmail,
-    receipt_email_same_as_recipient: receiptSameInput.checked ? 'yes' : 'no',
-    send_mode: isScheduled ? 'scheduled' : 'instant',
-    send_date: sendDate,
-    send_time: sendTime,
-    send_timezone: sendTimezone,
-    send_utc: sendUtc,
-    theme: String(getSelectedThemeIndex()),
-    mom_name: momName,
-    from_name: fromName,
-    message: message
-  });
+  // Сохраняем параметры, с которыми пользователь пришёл на страницу:
+  // etext, ybaip, utm_source и другие рекламные метки
+  const params = new URLSearchParams(window.location.search);
+
+  params.set('product', 'gift_certificate');
+  params.set('plan', plan.title);
+  params.set('period', plan.periodDays);
+  params.set('price', plan.price);
+  params.set('requests', plan.requests);
+  params.set('requests_label', plan.requestsText);
+  params.set('recipient_email', recipientEmail);
+  params.set('receipt_email', receiptEmail);
+  params.set(
+    'receipt_email_same_as_recipient',
+    receiptSameInput.checked ? 'yes' : 'no'
+  );
+  params.set('send_mode', isScheduled ? 'scheduled' : 'instant');
+  params.set('send_date', sendDate);
+  params.set('send_time', sendTime);
+  params.set('send_timezone', sendTimezone);
+  params.set('send_utc', sendUtc);
+  params.set('theme', String(getSelectedThemeIndex()));
+  params.set('mom_name', momName);
+  params.set('from_name', fromName);
+  params.set('message', message);
 
   return '/dev-gift-checkout?' + params.toString();
 }
