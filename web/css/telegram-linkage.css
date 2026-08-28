@@ -1,0 +1,267 @@
+html.oneiro-auth-pending body {
+    opacity: 0;
+  }
+
+  :root {
+    --oneiro-topbar-h: 88px;
+    --tl-page-bg: #ffffff;
+    --tl-hero-bg: #F8F8FB;
+    --tl-form-bg: #ffffff;
+    --tl-text: #000000;
+    --tl-muted: #6f6f76;
+    --tl-line: rgba(0, 0, 0, 0.35);
+    --tl-primary: #2a195b;
+    --tl-primary-hover: #241451;
+    --tl-error: #c43d3d;
+    --tl-success: #2d7a46;
+  }
+
+  #oneiro-tg-linkage-root,
+  #oneiro-tg-linkage-root * {
+    box-sizing: border-box;
+    font-family: TildaSans, Arial, sans-serif;
+  }
+
+  #oneiro-tg-linkage-root {
+    width: 100%;
+    min-height: calc(100vh - var(--oneiro-topbar-h));
+    background: var(--tl-page-bg);
+    color: var(--tl-text);
+  }
+
+  .otl-shell {
+    width: 100%;
+    min-height: calc(100vh - var(--oneiro-topbar-h));
+    padding: 0;
+  }
+
+  .otl-loading,
+  .otl-error {
+    width: 100%;
+    max-width: 640px;
+    margin: 120px auto 0;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .otl-error {
+    color: var(--tl-error);
+  }
+
+  .otl-app {
+    width: 100%;
+  }
+
+  .otl-hero {
+    width: 100%;
+    background: var(--tl-hero-bg);
+    text-align: center;
+    padding: 120px 20px;
+  }
+
+  .otl-hero-inner {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .otl-kicker {
+    margin: 0 0 28px;
+    font-size: 12px;
+    line-height: 1.35;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .otl-title {
+    margin: 0;
+    font-size: 52px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .otl-subtitle {
+    max-width: 640px;
+    margin: 32px auto 0;
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .otl-form-section {
+    width: 100%;
+    background: var(--tl-form-bg);
+    padding: 105px 20px;
+  }
+
+  .otl-form-wrap {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .otl-label {
+    display: block;
+    margin: 0 0 14px;
+    font-size: 16px;
+    line-height: 1.45;
+    font-weight: 400;
+  }
+
+  .otl-input {
+    width: 100%;
+    height: 56px;
+    border: 0;
+    border-bottom: 1px solid var(--tl-line);
+    background: transparent;
+    border-radius: 0;
+    outline: none;
+    padding: 0 0 10px;
+    color: var(--tl-text);
+    font-size: 16px;
+    line-height: 1.4;
+    box-shadow: none;
+    appearance: none;
+  }
+
+  .otl-input::placeholder {
+    color: rgba(0, 0, 0, 0.45);
+    opacity: 1;
+  }
+
+  .otl-input:focus {
+    border-bottom-color: rgba(0, 0, 0, 0.65);
+  }
+
+  .otl-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+  }
+
+  .otl-btn {
+    min-width: 252px;
+    height: 58px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--tl-primary);
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+    padding: 0 28px;
+  }
+
+  .otl-btn:hover:not(:disabled) {
+    background: var(--tl-primary-hover);
+  }
+
+  .otl-btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .otl-btn:disabled {
+    opacity: 0.65;
+    cursor: default;
+  }
+
+  .otl-note {
+    text-align: center;
+    margin: 28px auto 0;
+    max-width: 520px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #333333;
+  }
+
+  .otl-status {
+    display: none;
+    text-align: center;
+    margin: 18px auto 0;
+    max-width: 520px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .otl-status.is-loading {
+    display: block;
+    color: var(--tl-muted);
+  }
+
+  .otl-status.is-error {
+    display: block;
+    color: var(--tl-error);
+  }
+
+  .otl-status.is-success {
+    display: block;
+    color: var(--tl-success);
+  }
+
+  @media (max-width: 767px) {
+    .otl-hero {
+      padding: 72px 20px;
+    }
+
+    .otl-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      margin-bottom: 20px;
+    }
+
+    .otl-title {
+      font-size: 36px;
+      line-height: 1.14;
+    }
+
+    .otl-subtitle {
+      margin-top: 22px;
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 100%;
+    }
+
+    .otl-form-section {
+      padding: 72px 20px;
+    }
+
+    .otl-form-wrap {
+      max-width: 100%;
+    }
+
+    .otl-label {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .otl-input {
+      height: 52px;
+      font-size: 15px;
+    }
+
+    .otl-actions {
+      margin-top: 30px;
+    }
+
+    .otl-btn {
+      width: 100%;
+      max-width: 280px;
+      min-width: 0;
+      height: 54px;
+      font-size: 15px;
+      padding: 0 22px;
+    }
+
+    .otl-note,
+    .otl-status {
+      font-size: 13px;
+      line-height: 1.55;
+      max-width: 100%;
+    }
+  }
