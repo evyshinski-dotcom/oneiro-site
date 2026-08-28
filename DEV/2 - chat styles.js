@@ -97,6 +97,7 @@ html, body, #allrecords {
   overflow-x: hidden !important;
 }
 
+
 /* чат строго между верхним меню и нижним тулбаром */
 #n8n-chat {
   position: fixed !important;

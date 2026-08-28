@@ -18,7 +18,8 @@
     const searchParams = new URLSearchParams(window.location.search);
     const rawOneiroApp = (searchParams.get('oneiroapp') || '').trim().toLowerCase();
     const isOneiroApp = rawOneiroApp === 'true' || rawOneiroApp === '1';
-
+    const ssaid = (searchParams.get('ssaid') || '').trim();
+    
     const next = '/dev-chat';
 
     function buildLoginUrl() {
@@ -65,58 +66,88 @@
       return session;
     }
 
-    function getSleepsFromApp() {
-      if (!isOneiroApp) {
-        return {
-          raw: '',
-          parsed: [],
-          available: false,
-          error: null,
-        };
-      }
+function getSleepsFromApp() {
+  if (!isOneiroApp) {
+    return {
+      raw: '',
+      parsed: [],
+      currentTime: null,
+      birthday: null,
+      available: false,
+      error: null,
+    };
+  }
 
-      try {
-        if (!window.OneiroApp || typeof window.OneiroApp.getSleeps !== 'function') {
-          return {
-            raw: '',
-            parsed: [],
-            available: false,
-            error: 'OneiroApp.getSleeps is not available',
-          };
-        }
-
-        const raw = window.OneiroApp.getSleeps() || '';
-
-        const parsed = raw
-          .split('\n')
-          .map(line => line.trim())
-          .filter(Boolean)
-          .map(line => {
-            const [id, startDate, endDate, ...commentParts] = line.split(';');
-            return {
-              id: id || '',
-              startDate: startDate || '',
-              endDate: endDate || '',
-              comment: commentParts.join(';') || '',
-            };
-          });
-
-        return {
-          raw,
-          parsed,
-          available: true,
-          error: null,
-        };
-      } catch (e) {
-        console.error('Ошибка получения снов из приложения', e);
-        return {
-          raw: '',
-          parsed: [],
-          available: false,
-          error: String(e?.message || e || 'unknown error'),
-        };
-      }
+  try {
+    if (
+      !window.OneiroApp ||
+      typeof window.OneiroApp.getSleeps !== 'function'
+    ) {
+      return {
+        raw: '',
+        parsed: [],
+        currentTime: null,
+        birthday: null,
+        available: false,
+        error: 'OneiroApp.getSleeps is not available',
+      };
     }
+
+    const raw = window.OneiroApp.getSleeps() || '';
+
+    if (!raw) {
+      return {
+        raw: '',
+        parsed: [],
+        currentTime: null,
+        birthday: null,
+        available: true,
+        error: null,
+      };
+    }
+
+    const data = JSON.parse(raw);
+
+    const parsed =
+      Array.isArray(data?.sleepItems)
+        ? data.sleepItems.map(item => ({
+            id: item?.id ?? null,
+            startDate: item?.startDate ?? '',
+            endDate: item?.endDate ?? '',
+            isNight: item?.isNight === true,
+            comment: item?.comment ?? '',
+          }))
+        : [];
+
+    return {
+      raw,
+      parsed,
+      currentTime: data?.currentTime ?? null,
+      birthday: data?.birthday ?? null,
+      available: true,
+      error: null,
+    };
+
+  } catch (e) {
+    console.error(
+      'Ошибка получения снов из приложения',
+      e
+    );
+
+    return {
+      raw: '',
+      parsed: [],
+      currentTime: null,
+      birthday: null,
+      available: false,
+      error: String(
+        e?.message ||
+        e ||
+        'unknown error'
+      ),
+    };
+  }
+}
 
     const session = await getValidSession();
     if (!session) {
@@ -173,6 +204,7 @@
       limit: sleepUser.limit ?? null,
       projectId: pid,
       oneiroapp: isOneiroApp,
+      ssaid: ssaid,
       appSleepsAvailable: appSleeps.available,
       appSleeps: appSleeps.parsed,
     };
@@ -211,6 +243,9 @@
         app_sleeps_available: appSleeps.available,
         app_sleeps_error: appSleeps.error,
         app_sleeps: appSleeps.parsed,
+        app_sleeps_current_time: appSleeps.currentTime,
+        app_sleeps_birthday: appSleeps.birthday,
+
         app_sleeps_raw: appSleeps.raw,
       },
       showWelcomeScreen: false,
