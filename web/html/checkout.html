@@ -1,0 +1,100 @@
+<div id="oneiro-tariff-page">
+  <div id="oneiro-tariff-loading">Загрузка данных...</div>
+
+  <div id="oneiro-tariff-error"></div>
+
+  <div class="ot-wrap" id="oneiro-tariff-app" style="display:none;">
+
+    <div class="ot-card ot-product">
+      <div class="ot-product-icon">
+        <img
+          src="https://static.tildacdn.com/tild3664-3165-4164-a364-653434313536/circle.png"
+          alt="Онейро"
+        />
+      </div>
+      <div class="ot-product-text">
+        <div class="ot-product-name">Онейро – бот-консультант по детскому сну</div>
+        <div class="ot-product-desc">Доступ: 50 запросов на 1 месяц</div>
+      </div>
+    </div>
+
+    <div class="ot-card ot-checkout">
+      <div class="ot-price-row">
+        <div class="ot-price-main" id="ot-price-main">550 ₽ в месяц</div>
+      </div>
+
+      <div class="ot-toggle-row">
+        <div class="ot-toggle-label">Автопродление</div>
+        <label class="ot-switch" aria-label="Автопродление">
+          <input type="checkbox" id="ot-recurrent" checked>
+          <span class="ot-switch-slider"></span>
+        </label>
+      </div>
+
+      <div class="ot-field-block">
+        <label class="ot-field-label" for="ot-promo-input">Промокод</label>
+
+        <div class="ot-promo-row">
+          <div class="ot-input-wrap">
+            <input
+              id="ot-promo-input"
+              class="ot-input"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              placeholder=""
+            >
+          </div>
+
+          <button id="ot-promo-btn" class="ot-promo-btn" type="button">
+            Активировать
+          </button>
+
+          <div id="ot-promo-success-icon" class="ot-promo-success-icon" aria-hidden="true">✓</div>
+        </div>
+
+        <div class="ot-promo-state">
+          <div id="ot-promo-message" class="ot-promo-message"></div>
+        </div>
+      </div>
+
+      <div class="ot-consents">
+        <label class="ot-check">
+          <input type="checkbox" id="ot-consent-subscription" checked>
+          <span class="ot-check-box">✓</span>
+          <span>
+            Этим платежом я соглашаюсь с
+            <a href="#" id="ot-link-subscription-agreement" target="_blank" rel="noopener">
+              Условиями платной подписки
+            </a>
+          </span>
+        </label>
+
+        <label class="ot-check">
+          <input type="checkbox" id="ot-consent-offer" checked>
+          <span class="ot-check-box">✓</span>
+          <span>
+            Согласен с
+            <a href="#" id="ot-link-public-offer" target="_blank" rel="noopener">
+              офертой
+            </a>
+            и
+            <a href="#" id="ot-link-privacy" target="_blank" rel="noopener">
+              политикой обработки персональных данных
+            </a>
+          </span>
+        </label>
+      </div>
+
+      <div class="ot-footer">
+        <button id="ot-pay-btn" class="ot-pay-btn" type="button">
+          Перейти к оплате – 550 ₽
+        </button>
+      </div>
+
+      <div class="ot-page-note" id="ot-page-note" style="display:none;"></div>
+    </div>
+  </div>
+</div>

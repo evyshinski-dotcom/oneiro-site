@@ -10,7 +10,10 @@ window.ONEIRO_CONFIG = {
     login: '/DEV-login',
     chat: '/DEV-chat',
     checkout: '/DEV-checkout',
-    telegramLinkage: '/DEV-telegram-linkage'
+    telegramLinkage: '/DEV-telegram-linkage',
+    subscriptionAgreement: 'https://oneiro-mom.ru/subscription_agreement',
+    publicOffer: 'https://oneiro-mom.ru/public-offer',
+    privacy: 'https://oneiro-mom.ru/privacy'
   },
 
   n8n: {
@@ -19,7 +22,9 @@ window.ONEIRO_CONFIG = {
     updateBabyInfo: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/updateBabyInfo',
     cancelAutorenew: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/cancelAutorenew',
     activateCertificate: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/activateCertificate',
-    timeCalc: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/time-calc'
+    timeCalc: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/time-calc',
+    generatePaymentData: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/generatePaymentData',
+    setPromo: 'https://ivagulin.dedyn.io/webhook/oneiro/setPromo'
   },
 
   popups: {
