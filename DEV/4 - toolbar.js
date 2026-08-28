@@ -457,6 +457,10 @@
     if (currentContext?.sleepUserId) {
       url.searchParams.set('sleep_user_id', currentContext.sleepUserId);
     }
+    
+    if (currentContext?.ssaid) {
+  url.searchParams.set('ssaid', currentContext.ssaid);
+}
 
     return url.toString();
   }
@@ -486,6 +490,7 @@
           headers: {
             token: currentContext.accessToken,
             tg_userid: String(currentContext.tgUserId || ''),
+            ssaid: String(currentContext.ssaid || ''),
             Accept: 'application/json',
           },
           credentials: 'omit',

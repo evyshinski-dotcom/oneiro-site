@@ -1,0 +1,189 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#oneiro-timecalc-popup {
+  --oneiro-popup-height: 100vh;
+
+  width: 100%;
+  height: var(--oneiro-popup-height);
+  min-height: var(--oneiro-popup-height);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+
+  font-family:
+    'TildaSans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+
+  color: #111111;
+  background: #f4f4f6;
+  box-sizing: border-box;
+}
+
+#oneiro-timecalc-popup::-webkit-scrollbar {
+  width: 6px;
+}
+
+#oneiro-timecalc-popup::-webkit-scrollbar-thumb {
+  background: #d7dbe7;
+  border-radius: 999px;
+}
+
+#oneiro-timecalc-popup,
+#oneiro-timecalc-popup *,
+#oneiro-timecalc-popup *::before,
+#oneiro-timecalc-popup *::after {
+  font-family:
+    'TildaSans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+
+  box-sizing: border-box;
+}
+
+#oneiro-timecalc-popup .ot-wrap {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 12px 10px 14px;
+  background: #f4f4f6;
+}
+
+#oneiro-timecalc-popup .ot-card {
+  background: #fbfbfc;
+  border-radius: 22px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+
+#oneiro-timecalc-popup .ot-card:last-child {
+  margin-bottom: 0;
+}
+
+#oneiro-timecalc-popup .ot-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+#oneiro-timecalc-popup .ot-subtitle {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #666c80;
+  margin: 0 0 26px;
+  max-width: 420px;
+}
+
+#oneiro-timecalc-popup .ot-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 14px;
+}
+
+#oneiro-timecalc-popup .ot-input-wrap {
+  width: 100%;
+}
+
+#oneiro-timecalc-popup .ot-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #8f93a2;
+  background: transparent;
+  padding: 0 6px 12px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #111111;
+  outline: none;
+  border-radius: 0;
+}
+
+#oneiro-timecalc-popup .ot-input::placeholder {
+  color: #8a8f9f;
+  opacity: 1;
+}
+
+#oneiro-timecalc-popup .ot-bottom {
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+#oneiro-timecalc-popup .ot-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #f3f5fb;
+  color: #2d2f45;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  width: min(100%, 170px);
+  border: none;
+  cursor: pointer;
+  transition: background .18s ease, opacity .18s ease;
+  white-space: nowrap;
+}
+
+#oneiro-timecalc-popup .ot-action-btn:hover {
+  background: #e9edf8;
+}
+
+#oneiro-timecalc-popup .ot-action-btn:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+#oneiro-timecalc-popup .ot-result-value {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #111111;
+  min-height: 24px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+#oneiro-timecalc-popup .ot-result-placeholder {
+  color: #666c80;
+}
+
+#oneiro-timecalc-popup .ot-error {
+  color: #b24c63;
+}
+
+#oneiro-timecalc-popup .ot-loading {
+  color: #666c80;
+}
+
+@media (max-width: 640px) {
+  #oneiro-timecalc-popup .ot-wrap {
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  #oneiro-timecalc-popup .ot-action-btn {
+    width: 100%;
+  }
+
+  #oneiro-timecalc-popup .ot-bottom {
+    justify-content: stretch;
+  }
+}

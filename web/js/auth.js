@@ -1,15 +1,15 @@
-<style>
-  html.oneiro-auth-pending body { opacity: 0; }
-</style>
+document.documentElement.classList.add('oneiro-auth-pending');
 
-<script>
-  document.documentElement.classList.add('oneiro-auth-pending');
-</script>
-
-<script>
 (function () {
-  const SUPABASE_URL = "https://ivagulin.dedyn.io/supabase-dev";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF";
+  const config = window.ONEIRO_CONFIG;
+
+  if (!config) {
+    console.error('ONEIRO_CONFIG is not loaded');
+    return;
+  }
+
+  const SUPABASE_URL = config.supabase.url;
+  const SUPABASE_PUBLISHABLE_KEY = config.supabase.anonKey;
 
   const searchParams = new URLSearchParams(window.location.search);
   const ssaidFromUrl = (searchParams.get('ssaid') || '').trim();
@@ -37,7 +37,7 @@
       params.set('oneiroapp', 'true');
     }
 
-    return "/dev-login?" + params.toString();
+    return config.routes.login + "?" + params.toString();
   }
 
   function showPage() {
@@ -83,4 +83,3 @@
     }
   });
 })();
-</script>
