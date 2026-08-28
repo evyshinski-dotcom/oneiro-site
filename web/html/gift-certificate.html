@@ -1,0 +1,254 @@
+<section class="oneiro-gift-config">
+  <div class="ogc-wrap">
+    <h2 class="ogc-title">Подарите молодой маме спокойный сон</h2>
+
+    <div class="ogc-layout">
+      <div class="oneiro-visual">
+        <img class="oneiro-back" src="https://static.tildacdn.com/tild3465-3266-4435-b537-636130653134/gift_card_oneiro.png" alt="Подарочный сертификат Онейро">
+
+        <div class="oneiro-front">
+          <div class="oneiro-label">ЭЛЕКТРОННЫЙ СЕРТИФИКАТ</div>
+          <div class="oneiro-title">ОНЕЙРО</div>
+          <div class="oneiro-card-text">
+            Сертификат на доступ к боту-консультанту,
+            который помогает наладить сон малыша
+            и поддерживает маму в первые месяцы.
+          </div>
+        </div>
+      </div>
+
+      <div class="ogc-purchase">
+        <div class="occ-plans">
+          <label class="occ-plan">
+            <input type="radio" name="oneiro-plan" value="550" checked>
+            <span><b>1 месяц</b><small>50 запросов</small><em>550 ₽</em></span>
+          </label>
+
+          <label class="occ-plan">
+            <input type="radio" name="oneiro-plan" value="1500">
+            <span><b>3 месяца</b><small>150 запросов</small><em>1 500 ₽</em></span>
+          </label>
+
+          <label class="occ-plan">
+            <input type="radio" name="oneiro-plan" value="5000">
+            <span><b>1 год</b><small>600 запросов</small><em>5 000 ₽</em></span>
+          </label>
+        </div>
+
+        <label class="ogc-field">
+          <span>Email получателя</span>
+          <input type="email" placeholder="happy_mom@example.com">
+        </label>
+        
+        <label class="ogc-receipt-same">
+  <input type="checkbox" id="ogc-receipt-same">
+  <span class="ogc-receipt-check">✓</span>
+  <span>Чек отправить на email получателя сертификата</span>
+</label>
+
+<label class="ogc-field" id="ogc-receipt-email-field">
+  <span>Email для чека</span>
+  <input type="email" id="ogc-receipt-email" placeholder="your_email@example.com">
+</label>
+		
+		<div class="ogc-send-title">Когда отправить сертификат</div>
+		
+        <div class="ogc-send-switch">
+          <button class="ogc-send-switch-btn is-active" type="button" data-send-mode="instant">
+            Сразу после оплаты
+          </button>
+
+          <button class="ogc-send-switch-btn" type="button" data-send-mode="scheduled">
+            Выбрать дату
+          </button>
+
+          <input type="checkbox" id="ogc-schedule-enabled" hidden>
+        </div>
+
+        <div class="ogc-schedule-fields" id="ogc-schedule-fields" hidden>
+          <div class="ogc-row">
+            <label class="ogc-field">
+              <span>Дата отправки</span>
+              <input type="date" id="ogc-send-date">
+            </label>
+
+            <label class="ogc-field">
+              <span>Время</span>
+              <select id="ogc-send-time"></select>
+            </label>
+          </div>
+
+          <label class="ogc-field">
+            <span>Часовой пояс</span>
+            <select id="ogc-timezone">
+  <optgroup label="Россия">
+    <option value="Europe/Kaliningrad">Калининград — UTC+2</option>
+    <option value="Europe/Moscow" selected>Москва — UTC+3</option>
+    <option value="Europe/Samara">Самара — UTC+4</option>
+    <option value="Asia/Yekaterinburg">Екатеринбург — UTC+5</option>
+    <option value="Asia/Omsk">Омск — UTC+6</option>
+    <option value="Asia/Krasnoyarsk">Красноярск — UTC+7</option>
+    <option value="Asia/Irkutsk">Иркутск — UTC+8</option>
+    <option value="Asia/Yakutsk">Якутск — UTC+9</option>
+    <option value="Asia/Vladivostok">Владивосток — UTC+10</option>
+    <option value="Asia/Magadan">Магадан — UTC+11</option>
+    <option value="Asia/Kamchatka">Камчатка — UTC+12</option>
+  </optgroup>
+
+  <optgroup label="Европа">
+    <option value="Europe/London">Лондон — UTC±0 / UTC+1</option>
+    <option value="Europe/Berlin">Берлин — UTC+1 / UTC+2</option>
+    <option value="Europe/Paris">Париж — UTC+1 / UTC+2</option>
+    <option value="Europe/Amsterdam">Амстердам — UTC+1 / UTC+2</option>
+    <option value="Europe/Rome">Рим — UTC+1 / UTC+2</option>
+    <option value="Europe/Madrid">Мадрид — UTC+1 / UTC+2</option>
+    <option value="Europe/Warsaw">Варшава — UTC+1 / UTC+2</option>
+    <option value="Europe/Istanbul">Стамбул — UTC+3</option>
+  </optgroup>
+
+  <optgroup label="СНГ и Ближний Восток">
+    <option value="Asia/Tbilisi">Тбилиси — UTC+4</option>
+    <option value="Asia/Yerevan">Ереван — UTC+4</option>
+    <option value="Asia/Baku">Баку — UTC+4</option>
+    <option value="Asia/Almaty">Алматы — UTC+5</option>
+    <option value="Asia/Tashkent">Ташкент — UTC+5</option>
+    <option value="Asia/Bishkek">Бишкек — UTC+6</option>
+    <option value="Asia/Dubai">Дубай — UTC+4</option>
+  </optgroup>
+
+  <optgroup label="Азия">
+    <option value="Asia/Bangkok">Бангкок — UTC+7</option>
+    <option value="Asia/Shanghai">Шанхай — UTC+8</option>
+    <option value="Asia/Hong_Kong">Гонконг — UTC+8</option>
+    <option value="Asia/Singapore">Сингапур — UTC+8</option>
+    <option value="Asia/Seoul">Сеул — UTC+9</option>
+    <option value="Asia/Tokyo">Токио — UTC+9</option>
+  </optgroup>
+
+  <optgroup label="Америка">
+    <option value="America/New_York">Нью-Йорк — UTC−5 / UTC−4</option>
+    <option value="America/Chicago">Чикаго — UTC−6 / UTC−5</option>
+    <option value="America/Denver">Денвер — UTC−7 / UTC−6</option>
+    <option value="America/Los_Angeles">Лос-Анджелес — UTC−8 / UTC−7</option>
+    <option value="America/Toronto">Торонто — UTC−5 / UTC−4</option>
+  </optgroup>
+
+  <optgroup label="Океания">
+    <option value="Australia/Sydney">Сидней — UTC+10 / UTC+11</option>
+    <option value="Pacific/Auckland">Окленд — UTC+12 / UTC+13</option>
+  </optgroup>
+</select>
+          </label>
+        </div>
+
+        <div class="ogc-actions">
+          <button class="ogc-personalize" type="button">
+            <span class="ogc-personalize-icon">🎨</span>
+            <span>Настроить</span>
+          </button>
+
+          <a href="#" class="occ-buy-btn" data-gift-checkout>
+  Оформить сертификат
+</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ogc-modal" hidden>
+  <div class="ogc-modal-backdrop"></div>
+
+  <div class="ogc-modal-card">
+    <button class="ogc-modal-close" type="button">×</button>
+
+    <h3>Сделайте подарок особенным</h3>
+    <p>Добавьте имя, пожелание и выберите оформление письма.</p>
+
+    <div class="ogc-modal-layout">
+      <div class="ogc-modal-preview">
+        <div class="ogc-phone-preview">
+          <img class="ogc-phone-frame" src="https://static.tildacdn.com/tild3039-3437-4831-a664-303062653231/smartphone-frame.png" alt="">
+
+          <div class="ogc-phone-screen">
+            <div class="ogc-phone-safe">
+              <div class="ogc-mail-preview">
+                <div class="ogc-mail-preview-top">
+                  <img src="https://static.tildacdn.com/tild3162-6265-4134-b862-373864616638/db5a494f-3f76-4a9f-9.png" alt="">
+                  <div>
+                    <div class="ogc-mail-preview-from">От: Oneiro-bot</div>
+                    <div class="ogc-mail-preview-to">Кому: happy_mom@example.com</div>
+                  </div>
+                </div>
+
+                <div class="ogc-mail-preview-body">
+                  <div class="ogc-mail-logo">ОНЕЙРО</div>
+                  <h4 data-preview-title>Для вас подарок</h4>
+
+                  <p data-preview-giver>
+                    Сертификат Онейро — заботливого бота-консультанта по детскому сну.
+                  </p>
+
+                  <div class="ogc-mail-message" data-preview-message>
+                    Пусть ночи станут спокойнее, а у вас появится больше сил для себя и малыша.
+                  </div>
+
+                  <button type="button">Активировать сертификат</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ogc-modal-form">
+        <div class="ogc-modal-grid">
+          <label class="ogc-field">
+            <span>Имя мамы</span>
+            <input type="text" placeholder="Анна">
+          </label>
+
+          <label class="ogc-field">
+            <span>От кого</span>
+            <input type="text" placeholder="Мария">
+          </label>
+
+          <label class="ogc-field">
+            <span>Пожелание</span>
+            <textarea rows="5">Пусть ночи станут спокойнее, а у вас появится больше сил для себя и малыша.</textarea>
+          </label>
+        </div>
+
+        <div class="ogc-themes">
+          <span>Оформление</span>
+
+          <button class="ogc-theme is-active" type="button">
+            <i style="background:#2A195B"></i>
+            <i style="background:#F3F7FE"></i>
+            <i style="background:#D556FD"></i>
+          </button>
+
+          <button class="ogc-theme" type="button">
+            <i style="background:#2A195B"></i>
+            <i style="background:#D4DCE8"></i>
+            <i style="background:#8A96B3"></i>
+          </button>
+
+          <button class="ogc-theme" type="button">
+            <i style="background:#2A195B"></i>
+            <i style="background:#F7DDEB"></i>
+            <i style="background:#F08BB7"></i>
+          </button>
+
+          <button class="ogc-theme" type="button">
+            <i style="background:#2A195B"></i>
+            <i style="background:#F8F8FB"></i>
+            <i style="background:#D4DCE8"></i>
+          </button>
+        </div>
+
+        <button class="ogc-save" type="button">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

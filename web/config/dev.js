@@ -11,6 +11,7 @@ window.ONEIRO_CONFIG = {
     chat: '/DEV-chat',
     checkout: '/DEV-checkout',
     telegramLinkage: '/DEV-telegram-linkage',
+    giftCheckout: '/DEV-gift-checkout',
     subscriptionAgreement: 'https://oneiro-mom.ru/subscription_agreement',
     publicOffer: 'https://oneiro-mom.ru/public-offer',
     privacy: 'https://oneiro-mom.ru/privacy'
