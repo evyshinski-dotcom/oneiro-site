@@ -26,7 +26,8 @@ window.ONEIRO_CONFIG = {
     timeCalc: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/time-calc',
     generatePaymentData: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/generatePaymentData',
     setPromo: 'https://ivagulin.dedyn.io/webhook/oneiro/setPromo',
-    postTGlinkRequest: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/postTGlinkRequest'
+    postTGlinkRequest: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/postTGlinkRequest',
+    generateCertPaymentLink: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/generateCertPaymentLink'
   },
 
   popups: {
