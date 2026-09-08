@@ -273,6 +273,34 @@ function getSleepsFromApp() {
       enableStreaming: false,
     });
 
+	const chatRoot = document.querySelector('#n8n-chat');
+
+	if (chatRoot) {
+	chatRoot.addEventListener(
+		'click',
+		(event) => {
+		const sendButton = event.target.closest('.chat-input-send-button');
+	
+		if (!sendButton) {
+			return;
+		}
+	
+		setTimeout(() => {
+			const textarea = chatRoot.querySelector(
+			'textarea[data-test-id="chat-input"]'
+			);
+	
+			if (!textarea || textarea.value !== '') {
+			return;
+			}
+	
+			textarea.style.height = 'var(--chat--textarea--height)';
+		}, 0);
+		},
+		true
+	);
+	}
+
     function refreshToolbarCounter() {
       if (
         window.OneiroToolbar &&
