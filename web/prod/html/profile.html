@@ -1,0 +1,108 @@
+<div id="oneiro-profile-popup">
+  <div class="op-wrap">
+
+    <div class="op-card">
+      <div class="op-section-title">Персональные данные</div>
+
+      <div class="op-info op-info-plain">
+        <div class="op-line" id="op-email-line">Email: —</div>
+        <div class="op-line" id="op-tg-username-line">Имя пользователя Telegram: —</div>
+      </div>
+
+      <div class="op-bottom">
+        <button class="op-action-btn" id="op-logout-btn" type="button">
+          <span class="op-btn-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 7V5.5C14 4.12 12.88 3 11.5 3h-5A2.5 2.5 0 0 0 4 5.5v13A2.5 2.5 0 0 0 6.5 21h5A2.5 2.5 0 0 0 14 18.5V17"/>
+              <path d="M10 12h10"/>
+              <path d="m17 8 4 4-4 4"/>
+            </svg>
+          </span>
+          <span>Выход</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-children-title">Малыши</div>
+
+      <div class="op-children-list" id="op-children-list">
+        <div class="op-loading">Загрузка данных...</div>
+      </div>
+
+      <div class="op-inline-hint op-hidden" id="op-children-hint">
+        Все, что считаете важным. Имя, дата рождения, пол — например:
+        <b>Маша, 02.02.2025, девочка</b>
+      </div>
+
+      <div class="op-inline-note op-hidden" id="op-children-note"></div>
+
+      <div class="op-bottom">
+        <button class="op-action-btn" id="op-edit-children-btn" type="button">
+          <span class="op-btn-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 20h4.2l10-10a2.2 2.2 0 0 0 0-3.1l-1.1-1.1a2.2 2.2 0 0 0-3.1 0L4 15.8V20Z"/>
+              <path d="m12.5 7.5 4 4"/>
+            </svg>
+          </span>
+          <span>Редактировать</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-status-row">
+        <span class="op-dot" id="op-sub-dot"></span>
+        <span id="op-sub-title">Загрузка...</span>
+      </div>
+
+      <div class="op-sub-body">
+        <div class="op-info op-info-sub">
+          <div class="op-line" id="op-limit-line">Осталось сообщений: —</div>
+          <div class="op-line" id="op-valid-till-line">Действует до: —</div>
+          <div class="op-line" id="op-recurrent-line">Автопродление: —</div>
+        </div>
+
+        <div class="op-bottom op-sub-actions">
+          <a class="op-action-btn" id="op-buy-btn" href="#">
+            <span class="op-buy-star">★</span>
+            <span id="op-buy-btn-text">Подписка на месяц – 550 ₽</span>
+          </a>
+
+          <button class="op-action-btn" id="op-activate-cert-btn" type="button">
+            <span class="op-btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 12v8H4v-8"></path>
+                <path d="M2 7h20v5H2z"></path>
+                <path d="M12 7v13"></path>
+                <path d="M12 7H8.5A2.5 2.5 0 1 1 12 3.5V7Z"></path>
+                <path d="M12 7h3.5A2.5 2.5 0 1 0 12 3.5V7Z"></path>
+              </svg>
+            </span>
+            <span>Активировать сертификат</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="op-certificate-form op-hidden" id="op-certificate-form">
+        <div class="op-certificate-label">Код сертификата</div>
+        <input
+          class="op-certificate-field"
+          id="op-certificate-code-input"
+          type="text"
+          placeholder="Введите код сертификата"
+          autocomplete="one-time-code"
+        >
+
+        <div class="op-certificate-actions">
+          <button class="op-action-btn" id="op-certificate-submit-btn" type="button">
+            Активировать
+          </button>
+        </div>
+
+        <div class="op-certificate-note op-hidden" id="op-certificate-note"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

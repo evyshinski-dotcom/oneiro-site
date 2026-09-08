@@ -1,0 +1,522 @@
+html.oneiro-auth-pending body {
+    opacity: 0;
+  }
+
+  :root {
+    --oneiro-topbar-h: 88px;
+    --oneiro-bg: #f4f4f6;
+    --oneiro-card: #fbfbfc;
+    --oneiro-text: #111111;
+    --oneiro-muted: #666c80;
+    --oneiro-border: #e5e7ef;
+    --oneiro-border-strong: #d9dce7;
+    --oneiro-link: #4b84c6;
+    --oneiro-primary: #2a195b;
+    --oneiro-primary-hover: #382678;
+    --oneiro-primary-disabled: #c9c7d6;
+    --oneiro-success: #17b35d;
+    --oneiro-danger: #c65959;
+    --oneiro-danger-bg: #fff4f4;
+    --oneiro-input-bg: #ffffff;
+    --oneiro-shadow: 0 2px 10px rgba(32, 33, 36, 0.03);
+    --oneiro-radius-xl: 28px;
+  }
+
+  html, body, #allrecords {
+    overflow-x: hidden !important;
+    background: var(--oneiro-bg) !important;
+  }
+
+  #rec1914738151 {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 31000 !important;
+  }
+
+#oneiro-tariff-page {
+  min-height: auto;
+  padding: 4px 16px 24px;
+  background: var(--oneiro-bg);
+  font-family: 'TildaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--oneiro-text);
+  box-sizing: border-box;
+}
+
+  #oneiro-tariff-page *,
+  #oneiro-tariff-page *::before,
+  #oneiro-tariff-page *::after {
+    box-sizing: border-box;
+  }
+
+  #oneiro-tariff-page .ot-wrap {
+    width: 100%;
+    max-width: 532px;
+    margin: 0 auto;
+  }
+
+  #oneiro-tariff-page .ot-title {
+    margin: 0 0 18px;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  #oneiro-tariff-page .ot-card {
+    background: var(--oneiro-card);
+    border-radius: var(--oneiro-radius-xl);
+    box-shadow: var(--oneiro-shadow);
+  }
+
+  #oneiro-tariff-page .ot-product {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+  }
+
+  #oneiro-tariff-page .ot-product-icon {
+    width: 88px;
+    min-width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--oneiro-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #oneiro-tariff-page .ot-product-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #oneiro-tariff-page .ot-product-text {
+    min-width: 0;
+  }
+
+  #oneiro-tariff-page .ot-product-name {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    margin: 0 0 4px;
+  }
+
+  #oneiro-tariff-page .ot-product-desc {
+    font-size: 14px;
+    line-height: 1.35;
+    color: #444;
+    margin: 0;
+  }
+
+  #oneiro-tariff-page .ot-checkout {
+    padding: 20px 22px 18px;
+  }
+
+  #oneiro-tariff-page .ot-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  #oneiro-tariff-page .ot-price-main {
+    font-size: 32px;
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  #oneiro-tariff-page .ot-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  #oneiro-tariff-page .ot-toggle-label {
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 400;
+  }
+
+  #oneiro-tariff-page .ot-switch {
+    position: relative;
+    width: 38px;
+    height: 22px;
+    display: inline-block;
+    flex: 0 0 auto;
+  }
+
+  #oneiro-tariff-page .ot-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  #oneiro-tariff-page .ot-switch-slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: #d8dce7;
+    transition: .2s ease;
+    cursor: pointer;
+  }
+
+  #oneiro-tariff-page .ot-switch-slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.12);
+    transition: .2s ease;
+  }
+
+  #oneiro-tariff-page .ot-switch input:checked + .ot-switch-slider {
+    background: var(--oneiro-success);
+  }
+
+  #oneiro-tariff-page .ot-switch input:checked + .ot-switch-slider::before {
+    transform: translateX(16px);
+  }
+
+  #oneiro-tariff-page .ot-field-block {
+    margin-bottom: 16px;
+  }
+
+  #oneiro-tariff-page .ot-field-label {
+    display: block;
+    font-size: 14px;
+    line-height: 1.3;
+    margin: 0 0 8px;
+  }
+
+  #oneiro-tariff-page .ot-promo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #oneiro-tariff-page .ot-input-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 70%;
+  }
+
+  #oneiro-tariff-page .ot-input {
+    width: 100%;
+    height: 48px;
+    border-radius: 14px;
+    border: 2px solid var(--oneiro-border-strong);
+    background: var(--oneiro-input-bg);
+    padding: 0 18px;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--oneiro-text);
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+
+  #oneiro-tariff-page .ot-input::placeholder {
+    color: #b3b6c3;
+  }
+
+  #oneiro-tariff-page .ot-input:focus {
+    border-color: #b9bfd2;
+    box-shadow: 0 0 0 4px rgba(42,25,91,.05);
+  }
+
+  #oneiro-tariff-page .ot-input:disabled {
+    background: #f5f6fa;
+    color: #7b8195;
+    cursor: not-allowed;
+  }
+
+  #oneiro-tariff-page .ot-promo-btn {
+    flex: 0 0 auto;
+    min-width: 128px;
+    height: 48px;
+    border: none;
+    border-radius: 16px;
+    background: #f3f3f7;
+    color: #555;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, opacity .15s ease;
+    padding: 0 16px;
+  }
+
+  #oneiro-tariff-page .ot-promo-btn:hover:not(:disabled) {
+    background: #ececf3;
+  }
+
+  #oneiro-tariff-page .ot-promo-btn:disabled {
+    opacity: .72;
+    cursor: not-allowed;
+  }
+
+  #oneiro-tariff-page .ot-promo-success-icon {
+    width: 19px;
+    min-width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--oneiro-success);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    font-size: 11px;
+    line-height: 1;
+    margin-left: 2px;
+  }
+
+  #oneiro-tariff-page .ot-promo-state {
+    min-height: 50px;
+    padding-top: 10px;
+  }
+
+  #oneiro-tariff-page .ot-promo-message {
+    display: none;
+    font-size: 13px;
+    line-height: 1.45;
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  #oneiro-tariff-page .ot-promo-message.is-loading {
+    display: block;
+    color: var(--oneiro-muted);
+    background: #f6f7fb;
+    border: 1px solid #eceef5;
+  }
+
+  #oneiro-tariff-page .ot-promo-message.is-success {
+    display: block;
+    color: #3d4a37;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  #oneiro-tariff-page .ot-promo-message.is-error {
+    display: block;
+    color: #8d4040;
+    background: var(--oneiro-danger-bg);
+    border: 1px solid #f1cccc;
+  }
+
+  #oneiro-tariff-page .ot-final-price {
+    color: var(--oneiro-danger);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  #oneiro-tariff-page .ot-old-price {
+    color: #666;
+    text-decoration: line-through;
+    margin-left: 4px;
+    white-space: nowrap;
+  }
+
+  #oneiro-tariff-page .ot-consents {
+    margin-top: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #oneiro-tariff-page .ot-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #3f3f3f;
+  }
+
+  #oneiro-tariff-page .ot-check input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #oneiro-tariff-page .ot-check-box {
+    width: 15px;
+    min-width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    font-size: 9px;
+    line-height: 1;
+    margin-top: 0;
+    user-select: none;
+    transition: transform .12s ease, opacity .12s ease;
+  }
+
+  #oneiro-tariff-page .ot-check input:not(:checked) + .ot-check-box {
+    opacity: .35;
+  }
+
+  #oneiro-tariff-page .ot-check a {
+    color: var(--oneiro-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #oneiro-tariff-page .ot-footer {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #oneiro-tariff-page .ot-pay-btn {
+    width: 244px;
+    max-width: 100%;
+    height: 46px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 999px;
+    background: var(--oneiro-primary);
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background .15s ease, transform .12s ease, opacity .15s ease;
+    box-shadow: 0 4px 14px rgba(42,25,91,.12);
+  }
+
+  #oneiro-tariff-page .ot-pay-btn:hover:not(:disabled) {
+    background: var(--oneiro-primary-hover);
+  }
+
+  #oneiro-tariff-page .ot-pay-btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  #oneiro-tariff-page .ot-pay-btn:disabled {
+    background: var(--oneiro-primary-disabled);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  #oneiro-tariff-page .ot-page-note {
+    margin-top: 12px;
+    text-align: center;
+    color: var(--oneiro-muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  #oneiro-tariff-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+    color: var(--oneiro-muted);
+    font-size: 14px;
+  }
+
+  #oneiro-tariff-error {
+    display: none;
+    max-width: 532px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #f1d3d3;
+    color: #8d4040;
+    border-radius: 20px;
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+@media (max-width: 680px) {
+  #oneiro-tariff-page {
+    padding: 6px 12px 20px;
+  }
+
+    #oneiro-tariff-page .ot-wrap,
+    #oneiro-tariff-page #oneiro-tariff-error {
+      max-width: 100%;
+    }
+
+    #oneiro-tariff-page .ot-product {
+      gap: 14px;
+      padding: 14px 16px;
+    }
+
+    #oneiro-tariff-page .ot-product-icon {
+      width: 74px;
+      min-width: 74px;
+      height: 74px;
+    }
+
+    #oneiro-tariff-page .ot-product-name {
+      font-size: 15px;
+    }
+
+    #oneiro-tariff-page .ot-product-desc {
+      font-size: 13px;
+    }
+
+    #oneiro-tariff-page .ot-checkout {
+      padding: 18px 16px 16px;
+    }
+
+    #oneiro-tariff-page .ot-price-main {
+      font-size: 26px;
+    }
+
+    #oneiro-tariff-page .ot-promo-row {
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+
+    #oneiro-tariff-page .ot-input-wrap {
+      width: 100%;
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+
+    #oneiro-tariff-page .ot-promo-btn {
+      min-width: 0;
+      width: auto;
+    }
+
+    #oneiro-tariff-page .ot-pay-btn {
+      width: 100%;
+      min-width: 0;
+    }
+
+    #oneiro-tariff-page .ot-check {
+      align-items: flex-start;
+    }
+
+    #oneiro-tariff-page .ot-check-box {
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+  }

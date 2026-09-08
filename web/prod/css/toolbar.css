@@ -1,0 +1,286 @@
+:root {
+  --oneiro-bottombar-h: 92px;
+  --oneiro-chat-maxw: 900px;
+}
+
+/* Контейнер тулбара */
+#oneiro-bottom-toolbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 12px;
+
+  width: min(calc(100% - 40px), var(--oneiro-chat-maxw));
+  min-height: 56px;
+
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(21, 18, 38, 0.16);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 30000;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Внутренняя раскладка */
+.oneiro-toolbar-inner {
+  width: 100%;
+  min-height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+  box-sizing: border-box;
+
+  font-family:
+    'TildaSans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+}
+
+/* Общий стиль кнопок */
+.oneiro-toolbar-item,
+.oneiro-toolbar-item:link,
+.oneiro-toolbar-item:visited {
+  width: auto;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  flex: 0 0 auto;
+
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+  color: #000 !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+
+  background: #f6f7fb;
+  border: none;
+  cursor: pointer;
+  transition: background .15s ease, opacity .15s ease;
+}
+
+.oneiro-toolbar-item:hover {
+  background: #eef1f8;
+}
+
+/* Счетчик */
+.oneiro-toolbar-counter {
+  width: auto;
+  min-height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  flex: 0 0 auto;
+  box-sizing: border-box;
+}
+
+.oneiro-toolbar-counter-label {
+  font-size: 13px;
+  line-height: 1.02;
+  font-weight: 400;
+  color: #000;
+  white-space: normal;
+  text-align: left;
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.oneiro-toolbar-counter-badge {
+  min-height: 40px;
+  padding: 8px 10px 8px 12px;
+  border-radius: 999px;
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  background: #f6f7fb;
+  border: none;
+  flex: 0 0 auto;
+}
+
+.oneiro-toolbar-counter-value {
+  min-width: 12px;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+}
+
+.oneiro-toolbar-counter-value.is-loading {
+  opacity: .55;
+}
+
+.oneiro-toolbar-counter-value.is-error {
+  color: #b42318;
+}
+
+/* Маленький плюс */
+.oneiro-toolbar-counter-plus {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background: #ffffff;
+  color: #000;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background .15s ease, opacity .15s ease;
+}
+
+.oneiro-toolbar-counter-plus:hover {
+  background: #eef1f8;
+}
+
+/* Иконки */
+.oneiro-toolbar-icon {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.oneiro-toolbar-icon svg {
+  width: 30px;
+  height: 30px;
+  stroke: #000;
+  fill: none;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.oneiro-toolbar-icon--calc svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1;
+}
+
+/* Подписи кнопок */
+.oneiro-toolbar-text {
+  display: inline;
+}
+
+/* Индивидуальная ширина кнопок */
+.oneiro-toolbar-item[aria-label="Профиль"] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.oneiro-toolbar-item[aria-label="Калькулятор времени"] {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Адаптив */
+@media (max-width: 640px) {
+  #oneiro-bottom-toolbar {
+    width: min(calc(100% - 20px), var(--oneiro-chat-maxw));
+  }
+
+  .oneiro-toolbar-inner {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+  }
+
+  .oneiro-toolbar-item,
+  .oneiro-toolbar-item:link,
+  .oneiro-toolbar-item:visited {
+    min-height: 38px;
+    padding: 8px;
+    font-size: 12px;
+    gap: 0;
+  }
+
+  .oneiro-toolbar-counter {
+    gap: 8px;
+  }
+
+  .oneiro-toolbar-counter-label {
+    font-size: 12px;
+    line-height: 1.02;
+  }
+
+  .oneiro-toolbar-counter-badge {
+    min-height: 38px;
+    padding: 8px 8px 8px 10px;
+    gap: 6px;
+  }
+
+  .oneiro-toolbar-counter-value {
+    font-size: 12px;
+  }
+
+  .oneiro-toolbar-counter-plus {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+    font-size: 15px;
+  }
+
+  .oneiro-toolbar-text {
+    display: none;
+  }
+
+  .oneiro-toolbar-item[aria-label="Профиль"],
+  .oneiro-toolbar-item[aria-label="Калькулятор времени"] {
+    width: 38px;
+    min-width: 38px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
