@@ -273,42 +273,29 @@ function getSleepsFromApp() {
       enableStreaming: false,
     });
 
-	function resetChatTextareaAfterSend() {
-	requestAnimationFrame(() => {
-		requestAnimationFrame(() => {
-		const textarea = document.querySelector('#n8n-chat textarea');
+	const chatRoot = document.querySelector('#n8n-chat');
+
+	if (chatRoot) {
+	chatRoot.addEventListener(
+		'click',
+		(event) => {
+		const sendButton = event.target.closest('.chat-input-send-button');
 	
-		if (!textarea || textarea.value !== '') {
+		if (!sendButton) {
 			return;
 		}
 	
-		textarea.style.removeProperty('height');
-		textarea.style.removeProperty('overflow-y');
-		});
-	});
-	}
+		setTimeout(() => {
+			const textarea = chatRoot.querySelector(
+			'textarea[data-test-id="chat-input"]'
+			);
 	
-	const chatRoot = document.querySelector('#n8n-chat');
+			if (!textarea || textarea.value !== '') {
+			return;
+			}
 	
-	if (chatRoot) {
-	// Отправка кнопкой
-	chatRoot.addEventListener(
-		'submit',
-		resetChatTextareaAfterSend,
-		true
-	);
-	
-	// Отправка Enter
-	chatRoot.addEventListener(
-		'keydown',
-		(event) => {
-		if (
-			event.key === 'Enter' &&
-			!event.shiftKey &&
-			!event.isComposing
-		) {
-			resetChatTextareaAfterSend();
-		}
+			textarea.style.height = 'var(--chat--textarea--height)';
+		}, 0);
 		},
 		true
 	);
