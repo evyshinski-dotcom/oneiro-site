@@ -273,6 +273,47 @@ function getSleepsFromApp() {
       enableStreaming: false,
     });
 
+	function resetChatTextareaAfterSend() {
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+		const textarea = document.querySelector('#n8n-chat textarea');
+	
+		if (!textarea || textarea.value !== '') {
+			return;
+		}
+	
+		textarea.style.removeProperty('height');
+		textarea.style.removeProperty('overflow-y');
+		});
+	});
+	}
+	
+	const chatRoot = document.querySelector('#n8n-chat');
+	
+	if (chatRoot) {
+	// Отправка кнопкой
+	chatRoot.addEventListener(
+		'submit',
+		resetChatTextareaAfterSend,
+		true
+	);
+	
+	// Отправка Enter
+	chatRoot.addEventListener(
+		'keydown',
+		(event) => {
+		if (
+			event.key === 'Enter' &&
+			!event.shiftKey &&
+			!event.isComposing
+		) {
+			resetChatTextareaAfterSend();
+		}
+		},
+		true
+	);
+	}
+
     function refreshToolbarCounter() {
       if (
         window.OneiroToolbar &&
