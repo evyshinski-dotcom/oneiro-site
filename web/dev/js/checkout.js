@@ -529,11 +529,22 @@ async function applyPromo() {
         window.location.href = state.paymentLink;
       });
 
-      state.sb.auth.onAuthStateChange((event, newSession) => {
-        if (event === 'SIGNED_OUT' || !newSession?.access_token) {
-          redirectToLogin();
-        }
-      });
+      state.sb.auth.onAuthStateChange(
+		(
+			event,
+			newSession
+		) => {
+			if (
+			event === 'SIGNED_OUT' ||
+			!newSession?.access_token ||
+			newSession
+				.user
+				?.is_anonymous === true
+			) {
+			redirectToLogin();
+			}
+		}
+		);
 
       window.addEventListener('resize', updateTopOffset);
 
@@ -544,44 +555,92 @@ async function applyPromo() {
       }
     }
 
-    async function init() {
-      try {
-        applyConfiguredLinks();
-        updateTopOffset();
+async function init() {
+  try {
+    applyConfiguredLinks();
+    updateTopOffset();
 
-        state.sb = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    state.sb =
+      createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY,
+        {
           auth: {
-            detectSessionInUrl: true,
-            persistSession: true,
-            autoRefreshToken: true
-          }
-        });
+            detectSessionInUrl:
+              true,
 
-        state.session = await getValidSession();
-        if (!state.session) {
-          redirectToLogin();
-          return;
+            persistSession:
+              true,
+
+            autoRefreshToken:
+              true,
+          },
         }
+      );
 
-        const authUserId = state.session.user?.id || '';
-        if (!authUserId) {
-          redirectToLogin();
-          return;
-        }
+    state.session =
+      await getValidSession();
 
-        state.sleepUser = await loadSleepUser(authUserId);
-
-        bindEvents();
-        await loadPromoState();
-
-        state.loading = false;
-        updatePayButtonState();
-        showPage();
-      } catch (e) {
-        console.error('[oneiro-tariff] init error', e);
-        showError(e?.message || 'Не удалось загрузить страницу оплаты.');
-      }
+    /*
+     * Нет вообще никакой session.
+     */
+    if (!state.session) {
+      redirectToLogin();
+      return;
     }
+
+    /*
+     * Anonymous session существует,
+     * но покупать подписку можно
+     * только после регистрации.
+     */
+    if (
+      state.session
+        .user
+        ?.is_anonymous === true
+    ) {
+      redirectToLogin();
+      return;
+    }
+
+    const authUserId =
+      state.session
+        .user
+        ?.id || '';
+
+    if (!authUserId) {
+      redirectToLogin();
+      return;
+    }
+
+    state.sleepUser =
+      await loadSleepUser(
+        authUserId
+      );
+
+    bindEvents();
+
+    await loadPromoState();
+
+    state.loading =
+      false;
+
+    updatePayButtonState();
+
+    showPage();
+
+  } catch (e) {
+    console.error(
+      '[oneiro-tariff] init error',
+      e
+    );
+
+    showError(
+      e?.message ||
+      'Не удалось загрузить страницу оплаты.'
+    );
+  }
+}
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
