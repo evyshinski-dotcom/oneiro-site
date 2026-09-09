@@ -1,34 +1,49 @@
 (function () {
-  const config = window.ONEIRO_CONFIG;
+  const config =
+    window.ONEIRO_CONFIG;
 
   if (!config) {
-    console.error('ONEIRO_CONFIG is not loaded');
+    console.error(
+      'ONEIRO_CONFIG is not loaded'
+    );
     return;
   }
 
   if (!window.supabase) {
-    console.error('Supabase library is not loaded');
+    console.error(
+      'Supabase library is not loaded'
+    );
     return;
   }
 
-  const sb = window.supabase.createClient(
-    config.supabase.url,
-    config.supabase.anonKey,
-    {
-      auth: {
-        detectSessionInUrl: true
+  const sb =
+    window.supabase.createClient(
+      config.supabase.url,
+      config.supabase.anonKey,
+      {
+        auth: {
+          detectSessionInUrl: true,
+          persistSession: true,
+          autoRefreshToken: true,
+        },
       }
-    }
-  );
+    );
 
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams =
+    new URLSearchParams(
+      window.location.search
+    );
 
   const next =
     searchParams.get('next') ||
     config.routes.chat;
 
   const rawOneiroApp =
-    (searchParams.get('oneiroapp') || '')
+    (
+      searchParams.get(
+        'oneiroapp'
+      ) || ''
+    )
       .trim()
       .toLowerCase();
 
@@ -37,44 +52,63 @@
     rawOneiroApp === '1';
 
   const emailInput =
-    document.getElementById('oneiro-email');
+    document.getElementById(
+      'oneiro-email'
+    );
 
   const button =
-    document.getElementById('oneiro-button');
+    document.getElementById(
+      'oneiro-button'
+    );
 
   const message =
-    document.getElementById('oneiro-message');
+    document.getElementById(
+      'oneiro-message'
+    );
 
 
-  // -------------------------
+  // =========================================================
   // Events
-  // -------------------------
+  // =========================================================
 
   if (button) {
-    button.addEventListener('click', sendMagicLink);
+    button.addEventListener(
+      'click',
+      sendMagicLink
+    );
   }
 
   if (emailInput) {
-    emailInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        sendMagicLink();
+    emailInput.addEventListener(
+      'keydown',
+      function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          sendMagicLink();
+        }
       }
-    });
+    );
   }
 
 
-  // -------------------------
+  // =========================================================
   // Redirect URLs
-  // -------------------------
+  // =========================================================
 
   function buildWebLoginUrl() {
-    const params = new URLSearchParams();
+    const params =
+      new URLSearchParams();
 
-    params.set('next', next);
+    params.set(
+      'next',
+      next
+    );
 
     if (isOneiroApp) {
-      params.set('oneiroapp', 'true');
+      params.set(
+        'oneiroapp',
+        'true'
+      );
     }
 
     return (
@@ -87,12 +121,15 @@
 
 
   function buildEmailRedirectTo() {
-    const webLoginUrl = buildWebLoginUrl();
+    const webLoginUrl =
+      buildWebLoginUrl();
 
     if (isOneiroApp) {
       return (
         'oneiroapp://open?url=' +
-        encodeURIComponent(webLoginUrl)
+        encodeURIComponent(
+          webLoginUrl
+        )
       );
     }
 
@@ -100,20 +137,30 @@
   }
 
 
-  // -------------------------
+  // =========================================================
   // Email providers
-  // -------------------------
+  // =========================================================
 
-  function getEmailProviderUrl(email) {
+  function getEmailProviderUrl(
+    email
+  ) {
     const domain =
-      (email.split('@')[1] || '')
+      (
+        email.split('@')[1] ||
+        ''
+      )
         .trim()
         .toLowerCase();
 
     const providers = {
-      'mail.ru': 'https://e.mail.ru/inbox/',
-      'list.ru': 'https://e.mail.ru/inbox/',
-      'bk.ru': 'https://e.mail.ru/inbox/',
+      'mail.ru':
+        'https://e.mail.ru/inbox/',
+
+      'list.ru':
+        'https://e.mail.ru/inbox/',
+
+      'bk.ru':
+        'https://e.mail.ru/inbox/',
 
       'gmail.com':
         'https://mail.google.com/mail/u/0/#inbox',
@@ -125,33 +172,41 @@
         'https://mail.yandex.ru/',
 
       'icloud.com':
-        'https://www.icloud.com/mail/'
+        'https://www.icloud.com/mail/',
     };
 
-    const webMailUrl = providers[domain];
+    const webMailUrl =
+      providers[domain];
 
-    // В приложении всегда отдаём ссылку
     if (isOneiroApp) {
-      return 'mailapp:' + (webMailUrl || '');
+      return (
+        'mailapp:' +
+        (webMailUrl || '')
+      );
     }
 
-    // В браузере — только для известных провайдеров
     return webMailUrl || null;
   }
 
 
-  // -------------------------
+  // =========================================================
   // Messages
-  // -------------------------
+  // =========================================================
 
-  function showSuccessMessage(email) {
-    const mailUrl = getEmailProviderUrl(email);
+  function showSuccessMessage(
+    email
+  ) {
+    const mailUrl =
+      getEmailProviderUrl(
+        email
+      );
 
     if (!mailUrl) {
       showMessage(
         'Письмо отправлено ✨ Проверьте почту',
         'success'
       );
+
       return;
     }
 
@@ -159,16 +214,25 @@
       'Письмо отправлено ✨ ' +
       '<a class="oneiro-login-mail-link" href="' +
       mailUrl +
-      '">Открыть почту</a>',
+      '">' +
+      'Открыть почту' +
+      '</a>',
+
       'success'
     );
   }
 
 
-  function showHtmlMessage(html, state) {
-    if (!message) return;
+  function showHtmlMessage(
+    html,
+    state
+  ) {
+    if (!message) {
+      return;
+    }
 
-    message.innerHTML = html || '';
+    message.innerHTML =
+      html || '';
 
     message.classList.remove(
       'is-error',
@@ -177,15 +241,23 @@
     );
 
     if (state) {
-      message.classList.add('is-' + state);
+      message.classList.add(
+        'is-' + state
+      );
     }
   }
 
 
-  function showMessage(text, state) {
-    if (!message) return;
+  function showMessage(
+    text,
+    state
+  ) {
+    if (!message) {
+      return;
+    }
 
-    message.textContent = text || '';
+    message.textContent =
+      text || '';
 
     message.classList.remove(
       'is-error',
@@ -194,24 +266,169 @@
     );
 
     if (state) {
-      message.classList.add('is-' + state);
+      message.classList.add(
+        'is-' + state
+      );
     }
   }
 
 
-  // -------------------------
-  // Magic link
-  // -------------------------
+  // =========================================================
+  // Session
+  // =========================================================
+
+  async function getCurrentSession() {
+    const {
+      data,
+      error
+    } = await sb.auth.getSession();
+
+    if (error) {
+      console.warn(
+        'Не удалось получить session',
+        error
+      );
+
+      return null;
+    }
+
+    return (
+      data?.session ||
+      null
+    );
+  }
+
+
+  function isAnonymousSession(
+    session
+  ) {
+    return (
+      session
+        ?.user
+        ?.is_anonymous === true
+    );
+  }
+
+
+  // =========================================================
+  // Existing account login
+  // =========================================================
+
+  async function sendExistingAccountMagicLink(
+    email
+  ) {
+    return sb.auth.signInWithOtp({
+      email,
+
+      options: {
+        shouldCreateUser: false,
+
+        emailRedirectTo:
+          buildEmailRedirectTo(),
+      },
+    });
+  }
+
+
+  // =========================================================
+  // New / ordinary login
+  // =========================================================
+
+  async function sendRegularMagicLink(
+    email
+  ) {
+    return sb.auth.signInWithOtp({
+      email,
+
+      options: {
+        /*
+         * Сохраняем существующее поведение:
+         * если аккаунта ещё нет,
+         * Supabase создаёт permanent user.
+         */
+        shouldCreateUser: true,
+
+        emailRedirectTo:
+          buildEmailRedirectTo(),
+      },
+    });
+  }
+
+
+  // =========================================================
+  // Anonymous → permanent
+  // =========================================================
+
+  async function convertAnonymousUser(
+    email
+  ) {
+    const {
+      error: updateError
+    } =
+      await sb.auth.updateUser(
+        {
+          email,
+        },
+
+        {
+          emailRedirectTo:
+            buildEmailRedirectTo(),
+        }
+      );
+
+    /*
+     * Email свободен:
+     * Supabase отправил письмо
+     * для подтверждения email текущего
+     * anonymous user.
+     */
+    if (!updateError) {
+      return {
+        error: null,
+      };
+    }
+
+    /*
+     * Если email уже принадлежит другому
+     * аккаунту, updateUser не может
+     * присоединить его к anonymous user.
+     *
+     * Тогда отправляем magic link
+     * именно для существующего аккаунта.
+     *
+     * shouldCreateUser:false гарантирует,
+     * что новый пользователь здесь
+     * создан не будет.
+     */
+    console.info(
+      'Anonymous email linking failed; trying existing account login',
+      updateError
+    );
+
+    return sendExistingAccountMagicLink(
+      email
+    );
+  }
+
+
+  // =========================================================
+  // Submit
+  // =========================================================
 
   async function sendMagicLink() {
     const email =
-      (emailInput && emailInput.value
-        ? emailInput.value
-        : ''
+      (
+        emailInput &&
+        emailInput.value
+          ? emailInput.value
+          : ''
       ).trim();
 
     if (!email) {
-      showMessage('Введите email', 'error');
+      showMessage(
+        'Введите email',
+        'error'
+      );
       return;
     }
 
@@ -234,25 +451,44 @@
     );
 
     try {
-      const { error } =
-        await sb.auth.signInWithOtp({
-          email: email,
+      const session =
+        await getCurrentSession();
 
-          options: {
-            emailRedirectTo:
-              buildEmailRedirectTo()
-          }
-        });
+      let result;
 
-      if (error) {
+      if (
+        isAnonymousSession(
+          session
+        )
+      ) {
+        result =
+          await convertAnonymousUser(
+            email
+          );
+      } else {
+        result =
+          await sendRegularMagicLink(
+            email
+          );
+      }
+
+      if (result?.error) {
+        console.error(
+          'Magic link error:',
+          result.error
+        );
+
         showMessage(
           'Не удалось отправить письмо',
           'error'
         );
+
         return;
       }
 
-      showSuccessMessage(email);
+      showSuccessMessage(
+        email
+      );
 
     } catch (e) {
       console.error(
@@ -271,41 +507,70 @@
   }
 
 
-  // -------------------------
-  // Existing session
-  // -------------------------
+  // =========================================================
+  // Existing session on page load
+  // =========================================================
 
   async function checkSession() {
-    const { data } =
-      await sb.auth.getSession();
+    try {
+      const session =
+        await getCurrentSession();
 
-    if (
-      data &&
-      data.session
-    ) {
-      window.location.replace(next);
+      if (!session) {
+        return;
+      }
+
+      /*
+       * Anonymous user должен остаться
+       * на странице login, чтобы
+       * привязать email.
+       */
+      if (
+        isAnonymousSession(
+          session
+        )
+      ) {
+        return;
+      }
+
+      /*
+       * Permanent user уже вошёл.
+       */
+      window.location.replace(
+        next
+      );
+
+    } catch (e) {
+      console.error(
+        'Session check error:',
+        e
+      );
     }
   }
 
 
-  // -------------------------
+  // =========================================================
   // UI state
-  // -------------------------
+  // =========================================================
 
-  function setLoadingState(isLoading) {
+  function setLoadingState(
+    isLoading
+  ) {
     if (button) {
-      button.disabled = !!isLoading;
+      button.disabled =
+        !!isLoading;
     }
 
     if (emailInput) {
-      emailInput.disabled = !!isLoading;
+      emailInput.disabled =
+        !!isLoading;
     }
   }
 
 
-  // -------------------------
+  // =========================================================
   // Preloader
-  // -------------------------
+  // =========================================================
 
   function hidePreloader() {
     const preloader =
@@ -318,21 +583,25 @@
         'is-hidden'
       );
 
-      setTimeout(function () {
-        preloader.remove();
-      }, 500);
+      setTimeout(
+        function () {
+          preloader.remove();
+        },
+        500
+      );
     }
   }
 
 
-  // -------------------------
+  // =========================================================
   // Init
-  // -------------------------
+  // =========================================================
 
   checkSession();
 
   if (
-    document.readyState === 'loading'
+    document.readyState ===
+    'loading'
   ) {
     document.addEventListener(
       'DOMContentLoaded',
