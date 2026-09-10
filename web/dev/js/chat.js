@@ -313,18 +313,14 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   }
   
 	// =========================================================
-	// Регистрация device ID через getUserInfo
+	// Получение userInfo + регистрация device ID
 	// =========================================================
 	
-	async function registerDeviceThroughGetUserInfo({
+	async function loadUserInfoThroughN8n({
 	accessToken,
 	authUserId,
 	sleepUser
 	}) {
-	if (!deviceId) {
-		return;
-	}
-	
 	const url =
 		new URL(
 		config.n8n.getUserInfo
@@ -349,10 +345,12 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 		)
 	);
 	
-	url.searchParams.set(
+	if (deviceId) {
+		url.searchParams.set(
 		'ssaid',
 		deviceId
-	);
+		);
+	}
 	
 	const response =
 		await fetch(
@@ -370,7 +368,9 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 				),
 	
 			ssaid:
-				deviceId,
+				String(
+				deviceId || ''
+				),
 	
 			Accept:
 				'application/json',
@@ -390,6 +390,8 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 		response.status
 		);
 	}
+	
+	return await response.json();
 	}
 
   // =========================================================
@@ -563,18 +565,21 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   }
   
 	// =========================================================
-	// Регистрируем устройство
+	// Получаем userInfo и регистрируем устройство
 	// =========================================================
 	
+	let userInfo = null;
+	
 	try {
-	await registerDeviceThroughGetUserInfo({
+	userInfo =
+		await loadUserInfoThroughN8n({
 		accessToken,
 		authUserId,
 		sleepUser,
-	});
+		});
 	} catch (e) {
 	console.warn(
-		'Не удалось зарегистрировать device ID через getUserInfo',
+		'Не удалось получить userInfo через getUserInfo',
 		e
 	);
 	}
@@ -630,6 +635,8 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
     limit:
       sleepUser.limit ?? null,
+
+    userInfo,
 
     isAnonymous,
 
@@ -847,11 +854,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
       );
     }
   }
-
-  setTimeout(
-    refreshToolbarCounter,
-    250
-  );
 
   const chatTarget =
     document.querySelector(

@@ -335,6 +335,62 @@
 
 
   // =========================================================
+  // Initial counter from context
+  // =========================================================
+
+  function applyInitialCounterFromContext() {
+    if (!currentContext) {
+      return false;
+    }
+
+    /*
+     * chat.js уже вызвал getUserInfo.
+     * Используем тот же ответ и не делаем
+     * второй HTTP-запрос при загрузке.
+     */
+    if (currentContext.userInfo) {
+      const value =
+        extractRequestsLeft(
+          currentContext.userInfo
+        );
+
+      if (value != null) {
+        lastLoadedValue =
+          value;
+
+        setCounterValue(
+          String(value)
+        );
+
+        return true;
+      }
+    }
+
+    /*
+     * Fallback на значение,
+     * полученное напрямую из sleep_users.
+     */
+    if (
+      typeof currentContext
+        .limit === 'number'
+    ) {
+      lastLoadedValue =
+        currentContext.limit;
+
+      setCounterValue(
+        String(
+          currentContext.limit
+        )
+      );
+
+      return true;
+    }
+
+    return false;
+  }
+
+
+  // =========================================================
   // Checkout
   // =========================================================
 
@@ -692,26 +748,23 @@
 
       applyProfileMode();
 
-      if (
-        typeof currentContext
-          .limit ===
-          'number' &&
-        lastLoadedValue ==
-          null
-      ) {
-        lastLoadedValue =
-          currentContext.limit;
+      const initialized =
+        applyInitialCounterFromContext();
 
-        setCounterValue(
-          String(
-            currentContext.limit
-          )
+      /*
+       * Обычно сюда не попадём:
+       * userInfo уже должен прийти
+       * из chat.js.
+       *
+       * Но если ранний getUserInfo
+       * не сработал, toolbar делает
+       * резервную попытку.
+       */
+      if (!initialized) {
+        refreshRequestsLeft(
+          true
         );
       }
-
-      refreshRequestsLeft(
-        true
-      );
     }
   );
 
@@ -764,24 +817,19 @@
 
       applyProfileMode();
 
-      if (
-        typeof currentContext
-          .limit ===
-          'number'
-      ) {
-        lastLoadedValue =
-          currentContext.limit;
+      const initialized =
+        applyInitialCounterFromContext();
 
-        setCounterValue(
-          String(
-            currentContext.limit
-          )
+      /*
+       * Fallback только если chat.js
+       * вообще не передал ни userInfo,
+       * ни исходный limit.
+       */
+      if (!initialized) {
+        refreshRequestsLeft(
+          true
         );
       }
-
-      refreshRequestsLeft(
-        true
-      );
     }
   }
 
