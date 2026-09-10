@@ -286,7 +286,7 @@
 }
 
 
-/* =========================================================
+//* =========================================================
    Free requests hint
    ========================================================= */
 
@@ -296,28 +296,23 @@
 
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
 
   width: max-content;
   max-width: calc(100vw - 24px);
 
-  padding: 10px 36px 10px 12px;
+  padding: 11px 38px 11px 14px;
 
   box-sizing: border-box;
-  border-radius: 18px;
+  border-radius: 22px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #F8F5FF 0%,
-      #EAE2FF 100%
-    );
+  background: #2A195B;
 
-  color: #2A195B;
+  color: #FFFFFF;
 
   box-shadow:
     0 10px 26px
-    rgba(42, 25, 91, 0.20);
+    rgba(42, 25, 91, 0.24);
 
   font-family:
     'TildaSans',
@@ -359,26 +354,26 @@
 }
 
 
-/* Миниатюрная иконка */
+/* Миниатюрная иконка луны */
 .oneiro-free-hint-icon {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
 
-  min-width: 28px;
+  min-width: 30px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: #5A35C9;
+  color: #C85CFF;
 }
 
 .oneiro-free-hint-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
 
-  fill: #5A35C9;
-  stroke: #5A35C9;
+  fill: #C85CFF;
+  stroke: #C85CFF;
 
   stroke-width: 1.7;
   stroke-linecap: round;
@@ -392,22 +387,22 @@
   flex-direction: column;
 
   font-size: 13px;
-  line-height: 1.18;
+  line-height: 1.16;
 
-  color: #2A195B;
+  color: #FFFFFF;
 
   white-space: nowrap;
 }
 
 .oneiro-free-hint-text strong {
-  margin-top: 2px;
+  margin-top: 3px;
 
-  font-size: 14px;
-  line-height: 1.18;
+  font-size: 15px;
+  line-height: 1.16;
 
   font-weight: 600;
 
-  color: #2A195B;
+  color: #D85CFF;
 }
 
 
@@ -415,11 +410,11 @@
 .oneiro-free-hint-close {
   position: absolute;
 
-  top: 7px;
-  right: 8px;
+  top: 8px;
+  right: 9px;
 
-  width: 23px;
-  height: 23px;
+  width: 22px;
+  height: 22px;
 
   padding: 0;
   border: 0;
@@ -430,19 +425,19 @@
 
   background: transparent;
 
-  color: #2A195B;
+  color: #FFFFFF;
 
   cursor: pointer;
 
-  opacity: .72;
+  opacity: .78;
 }
 
 .oneiro-free-hint-close svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
 
   fill: none;
-  stroke: #2A195B;
+  stroke: #FFFFFF;
 
   stroke-width: 1.8;
   stroke-linecap: round;
@@ -477,7 +472,7 @@
 
 .oneiro-free-hint-arrow path {
   fill: none;
-  stroke: #5A35C9;
+  stroke: #C85CFF;
 
   stroke-width: 2.4;
   stroke-linecap: round;
@@ -488,27 +483,27 @@
 /* Мобильный размер */
 @media (max-width: 640px) {
   #oneiro-free-requests-hint {
-    gap: 8px;
+    gap: 9px;
 
     padding:
-      9px
-      34px
-      9px
-      10px;
+      10px
+      36px
+      10px
+      12px;
 
-    border-radius: 16px;
+    border-radius: 20px;
   }
 
   .oneiro-free-hint-icon {
-    width: 25px;
-    height: 25px;
+    width: 27px;
+    height: 27px;
 
-    min-width: 25px;
+    min-width: 27px;
   }
 
   .oneiro-free-hint-icon svg {
-    width: 25px;
-    height: 25px;
+    width: 27px;
+    height: 27px;
   }
 
   .oneiro-free-hint-text {
@@ -516,6 +511,6 @@
   }
 
   .oneiro-free-hint-text strong {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
