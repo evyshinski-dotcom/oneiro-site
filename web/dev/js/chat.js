@@ -40,7 +40,38 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   const ssaid =
     (searchParams.get('ssaid') || '').trim();
 
-
+	// =========================================================
+	// Device ID
+	// =========================================================
+	
+	function getWebDeviceId() {
+	const key =
+		'oneiro:web_device_id';
+	
+	let id =
+		localStorage.getItem(key);
+	
+	if (!id) {
+		id =
+		crypto.randomUUID();
+	
+		localStorage.setItem(
+		key,
+		id
+		);
+	}
+	
+	return (
+		'web:' + id
+	);
+	}
+	
+	const deviceId =
+	isOneiroApp
+		? ssaid
+		: getWebDeviceId();
+		
+		
   // =========================================================
   // Ошибка загрузки чата
   // =========================================================
@@ -58,7 +89,33 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
         '</div>';
     }
   }
-
+	// =========================================================
+	// Проверка зарегистрированного пользователя по SSAID и device ID
+	// =========================================================
+	
+	
+	async function hasPermanentUserForDeviceId() {
+	if (!deviceId) {
+		return false;
+	}
+	
+	const {
+		data,
+		error
+	} = await sb.rpc(
+		'has_permanent_user_for_ssaid',
+		{
+		p_ssaid:
+			deviceId,
+		}
+	);
+	
+	if (error) {
+		throw error;
+	}
+	
+	return data === true;
+	}
 
   // =========================================================
   // Supabase session
@@ -102,34 +159,103 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   }
 
 
-  async function getOrCreateSession() {
-    let session =
-      await getValidSession();
-
-    if (session?.access_token) {
-      return session;
-    }
-
-    const {
-      data,
-      error
-    } = await sb.auth.signInAnonymously();
-
-    if (error) {
-      throw error;
-    }
-
-    session =
-      data?.session || null;
-
-    if (!session?.access_token) {
-      throw new Error(
-        'Anonymous session was not created'
-      );
-    }
-
-    return session;
-  }
+	async function getOrCreateSession() {
+	let session =
+		await getValidSession();
+	
+	if (session?.access_token) {
+		return session;
+	}
+	
+	/*
+	* В Android-приложении перед созданием
+	* нового anonymous user проверяем,
+	* не принадлежит ли SSAID уже
+	* permanent-пользователю.
+	*/
+	const hasPermanentUser =
+	await hasPermanentUserForDeviceId();
+	
+	if (hasPermanentUser) {
+	const params =
+		new URLSearchParams();
+	
+	let next =
+		config.routes.chat;
+	
+	/*
+	* В Android возвращаем в чат
+	* вместе с oneiroapp и SSAID.
+	*
+	* В браузере deviceId лежит
+	* в localStorage, поэтому
+	* передавать его через URL
+	* не требуется.
+	*/
+	if (
+		isOneiroApp &&
+		ssaid
+	) {
+		const chatParams =
+		new URLSearchParams();
+	
+		chatParams.set(
+		'oneiroapp',
+		'true'
+		);
+	
+		chatParams.set(
+		'ssaid',
+		ssaid
+		);
+	
+		next =
+		config.routes.chat +
+		'?' +
+		chatParams.toString();
+	}
+	
+	params.set(
+		'next',
+		next
+	);
+	
+	if (isOneiroApp) {
+		params.set(
+		'oneiroapp',
+		'true'
+		);
+	}
+	
+	window.location.replace(
+		config.routes.login +
+		'?' +
+		params.toString()
+	);
+	
+	return null;
+	}
+	
+	const {
+		data,
+		error
+	} = await sb.auth.signInAnonymously();
+	
+	if (error) {
+		throw error;
+	}
+	
+	session =
+		data?.session || null;
+	
+	if (!session?.access_token) {
+		throw new Error(
+		'Anonymous session was not created'
+		);
+	}
+	
+	return session;
+	}
 
 
   // =========================================================
@@ -185,7 +311,86 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
     return null;
   }
-
+  
+	// =========================================================
+	// Регистрация device ID через getUserInfo
+	// =========================================================
+	
+	async function registerDeviceThroughGetUserInfo({
+	accessToken,
+	authUserId,
+	sleepUser
+	}) {
+	if (!deviceId) {
+		return;
+	}
+	
+	const url =
+		new URL(
+		config.n8n.getUserInfo
+		);
+	
+	url.searchParams.set(
+		'tg_userid',
+		String(
+		sleepUser.tg_userid || ''
+		)
+	);
+	
+	url.searchParams.set(
+		'auth_user_id',
+		authUserId
+	);
+	
+	url.searchParams.set(
+		'sleep_user_id',
+		String(
+		sleepUser.id
+		)
+	);
+	
+	url.searchParams.set(
+		'ssaid',
+		deviceId
+	);
+	
+	const response =
+		await fetch(
+		url.toString(),
+		{
+			method: 'GET',
+	
+			headers: {
+			token:
+				accessToken,
+	
+			tg_userid:
+				String(
+				sleepUser.tg_userid || ''
+				),
+	
+			ssaid:
+				deviceId,
+	
+			Accept:
+				'application/json',
+			},
+	
+			credentials:
+			'omit',
+	
+			cache:
+			'no-store',
+		}
+		);
+	
+	if (!response.ok) {
+		throw new Error(
+		'getUserInfo HTTP ' +
+		response.status
+		);
+	}
+	}
 
   // =========================================================
   // Данные из Android-приложения
@@ -296,18 +501,22 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   // Авторизация / anonymous signup
   // =========================================================
 
-  let session;
+	let session;
 
-  try {
-    session =
-      await getOrCreateSession();
-  } catch (e) {
-    fail(
-      'Не удалось получить Supabase session',
-      e
-    );
-    return;
-  }
+	try {
+	session =
+		await getOrCreateSession();
+	} catch (e) {
+	fail(
+		'Ошибка авторизации',
+		e
+	);
+	return;
+	}
+	
+	if (!session) {
+	return;
+	}
 
   const authUserId =
     session.user?.id || '';
@@ -352,6 +561,23 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
     );
     return;
   }
+  
+	// =========================================================
+	// Регистрируем устройство
+	// =========================================================
+	
+	try {
+	await registerDeviceThroughGetUserInfo({
+		accessToken,
+		authUserId,
+		sleepUser,
+	});
+	} catch (e) {
+	console.warn(
+		'Не удалось зарегистрировать device ID через getUserInfo',
+		e
+	);
+	}
 
 
   // =========================================================
@@ -413,7 +639,8 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
     oneiroapp:
       isOneiroApp,
 
-    ssaid,
+    ssaid:
+		deviceId,
 
     appSleepsAvailable:
       appSleeps.available,
@@ -497,6 +724,9 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
       oneiroapp:
         isOneiroApp,
+		
+	  ssaid:
+		deviceId,
 
       app_sleeps_available:
         appSleeps.available,
