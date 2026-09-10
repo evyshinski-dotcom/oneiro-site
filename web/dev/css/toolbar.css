@@ -284,3 +284,238 @@
     padding-right: 0;
   }
 }
+
+
+/* =========================================================
+   Free requests hint
+   ========================================================= */
+
+#oneiro-free-requests-hint {
+  position: fixed;
+  z-index: 31000;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  width: max-content;
+  max-width: calc(100vw - 24px);
+
+  padding: 10px 36px 10px 12px;
+
+  box-sizing: border-box;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #F8F5FF 0%,
+      #EAE2FF 100%
+    );
+
+  color: #2A195B;
+
+  box-shadow:
+    0 10px 26px
+    rgba(42, 25, 91, 0.20);
+
+  font-family:
+    'TildaSans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+
+  opacity: 0;
+
+  transform:
+    translateY(5px)
+    scale(.98);
+
+  transform-origin:
+    center bottom;
+
+  transition:
+    opacity .18s ease,
+    transform .18s ease;
+}
+
+#oneiro-free-requests-hint.is-visible {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+#oneiro-free-requests-hint.is-hiding {
+  opacity: 0;
+
+  transform:
+    translateY(4px)
+    scale(.98);
+}
+
+
+/* Миниатюрная иконка */
+.oneiro-free-hint-icon {
+  width: 28px;
+  height: 28px;
+
+  min-width: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #5A35C9;
+}
+
+.oneiro-free-hint-icon svg {
+  width: 28px;
+  height: 28px;
+
+  fill: #5A35C9;
+  stroke: #5A35C9;
+
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* Текст */
+.oneiro-free-hint-text {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 13px;
+  line-height: 1.18;
+
+  color: #2A195B;
+
+  white-space: nowrap;
+}
+
+.oneiro-free-hint-text strong {
+  margin-top: 2px;
+
+  font-size: 14px;
+  line-height: 1.18;
+
+  font-weight: 600;
+
+  color: #2A195B;
+}
+
+
+/* Крестик */
+.oneiro-free-hint-close {
+  position: absolute;
+
+  top: 7px;
+  right: 8px;
+
+  width: 23px;
+  height: 23px;
+
+  padding: 0;
+  border: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+
+  color: #2A195B;
+
+  cursor: pointer;
+
+  opacity: .72;
+}
+
+.oneiro-free-hint-close svg {
+  width: 15px;
+  height: 15px;
+
+  fill: none;
+  stroke: #2A195B;
+
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.oneiro-free-hint-close:hover {
+  opacity: 1;
+}
+
+
+/* Стрелка к счётчику */
+.oneiro-free-hint-arrow {
+  position: absolute;
+
+  bottom: -25px;
+
+  width: 42px;
+  height: 42px;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+}
+
+.oneiro-free-hint-arrow svg {
+  width: 42px;
+  height: 42px;
+
+  overflow: visible;
+}
+
+.oneiro-free-hint-arrow path {
+  fill: none;
+  stroke: #5A35C9;
+
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* Мобильный размер */
+@media (max-width: 640px) {
+  #oneiro-free-requests-hint {
+    gap: 8px;
+
+    padding:
+      9px
+      34px
+      9px
+      10px;
+
+    border-radius: 16px;
+  }
+
+  .oneiro-free-hint-icon {
+    width: 25px;
+    height: 25px;
+
+    min-width: 25px;
+  }
+
+  .oneiro-free-hint-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .oneiro-free-hint-text {
+    font-size: 12px;
+  }
+
+  .oneiro-free-hint-text strong {
+    font-size: 13px;
+  }
+}

@@ -335,6 +335,360 @@
 
 
   // =========================================================
+  // Free requests hint
+  // =========================================================
+
+  let freeRequestsHintShown =
+    false;
+
+
+  function getFreeRequestsHintStorageKey() {
+    const authUserId =
+      currentContext
+        ?.authUserId;
+
+    if (!authUserId) {
+      return null;
+    }
+
+    return (
+      'oneiro:free-requests-hint-seen:' +
+      authUserId
+    );
+  }
+
+
+  function hasSeenFreeRequestsHint() {
+    const key =
+      getFreeRequestsHintStorageKey();
+
+    if (!key) {
+      return false;
+    }
+
+    try {
+      return (
+        localStorage.getItem(
+          key
+        ) === '1'
+      );
+    } catch (e) {
+      return false;
+    }
+  }
+
+
+  function markFreeRequestsHintSeen() {
+    const key =
+      getFreeRequestsHintStorageKey();
+
+    if (!key) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(
+        key,
+        '1'
+      );
+    } catch (e) {
+      // ignore
+    }
+  }
+
+
+  function getRequestsWord(
+    value
+  ) {
+    const n =
+      Math.abs(
+        Number(value)
+      );
+
+    const mod10 =
+      n % 10;
+
+    const mod100 =
+      n % 100;
+
+    if (
+      mod10 === 1 &&
+      mod100 !== 11
+    ) {
+      return 'запрос';
+    }
+
+    if (
+      mod10 >= 2 &&
+      mod10 <= 4 &&
+      (
+        mod100 < 12 ||
+        mod100 > 14
+      )
+    ) {
+      return 'запроса';
+    }
+
+    return 'запросов';
+  }
+
+
+  function positionFreeRequestsHint() {
+    const hint =
+      document.getElementById(
+        'oneiro-free-requests-hint'
+      );
+
+    const counter =
+      document.querySelector(
+        '.oneiro-toolbar-counter-badge'
+      );
+
+    if (
+      !hint ||
+      !counter
+    ) {
+      return;
+    }
+
+    const counterRect =
+      counter.getBoundingClientRect();
+
+    const hintRect =
+      hint.getBoundingClientRect();
+
+    const viewportPadding =
+      12;
+
+    let left =
+      counterRect.left +
+      counterRect.width / 2 -
+      hintRect.width / 2;
+
+    left =
+      Math.max(
+        viewportPadding,
+        Math.min(
+          left,
+          window.innerWidth -
+            hintRect.width -
+            viewportPadding
+        )
+      );
+
+    let top =
+      counterRect.top -
+      hintRect.height -
+      24;
+
+    top =
+      Math.max(
+        12,
+        top
+      );
+
+    hint.style.left =
+      left + 'px';
+
+    hint.style.top =
+      top + 'px';
+
+    const arrow =
+      hint.querySelector(
+        '.oneiro-free-hint-arrow'
+      );
+
+    if (!arrow) {
+      return;
+    }
+
+    const counterCenter =
+      counterRect.left +
+      counterRect.width / 2;
+
+    const arrowLeft =
+      Math.max(
+        28,
+        Math.min(
+          hintRect.width - 28,
+          counterCenter - left
+        )
+      );
+
+    arrow.style.left =
+      arrowLeft + 'px';
+  }
+
+
+  function createFreeRequestsHint(
+    value
+  ) {
+    if (
+      freeRequestsHintShown ||
+      hasSeenFreeRequestsHint()
+    ) {
+      return;
+    }
+
+    const counter =
+      document.querySelector(
+        '.oneiro-toolbar-counter-badge'
+      );
+
+    if (!counter) {
+      return;
+    }
+
+    const existingHint =
+      document.getElementById(
+        'oneiro-free-requests-hint'
+      );
+
+    if (existingHint) {
+      return;
+    }
+
+    const hint =
+      document.createElement(
+        'div'
+      );
+
+    hint.id =
+      'oneiro-free-requests-hint';
+
+    hint.setAttribute(
+      'role',
+      'status'
+    );
+
+    hint.innerHTML = `
+      <div class="oneiro-free-hint-icon">
+        <svg
+          viewBox="0 0 32 32"
+          aria-hidden="true"
+        >
+          <path
+            d="M23.4 23.2C17.2 25.5 10.3 22.3 8 16.1C6.6 12.4 7.2 8.4 9.6 5.3C9.8 5 10.3 5.1 10.4 5.5C11.2 11.1 16 15.4 21.8 15.4C23.5 15.4 25.2 15 26.7 14.3C27.1 14.1 27.5 14.5 27.3 14.9C26.4 18.5 24.5 21.5 23.4 23.2Z"
+          />
+          <path
+            d="M23.8 5.2V8.8"
+          />
+          <path
+            d="M22 7H25.6"
+          />
+        </svg>
+      </div>
+
+      <div class="oneiro-free-hint-text">
+        <span>Вам доступно</span>
+        <strong>
+          ${value} бесплатных ${getRequestsWord(value)}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="oneiro-free-hint-close"
+        aria-label="Закрыть"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M6 6L18 18"></path>
+          <path d="M18 6L6 18"></path>
+        </svg>
+      </button>
+
+      <div
+        class="oneiro-free-hint-arrow"
+        aria-hidden="true"
+      >
+        <svg
+          viewBox="0 0 42 42"
+        >
+          <path
+            d="M8 5C12 18 22 27 35 31"
+          />
+          <path
+            d="M27 27L35 31L31 22"
+          />
+        </svg>
+      </div>
+    `;
+
+    document.body.appendChild(
+      hint
+    );
+
+    const closeBtn =
+      hint.querySelector(
+        '.oneiro-free-hint-close'
+      );
+
+    closeBtn?.addEventListener(
+      'click',
+
+      function () {
+        markFreeRequestsHintSeen();
+
+        hint.classList.add(
+          'is-hiding'
+        );
+
+        setTimeout(
+          function () {
+            hint.remove();
+          },
+          180
+        );
+      }
+    );
+
+    freeRequestsHintShown =
+      true;
+
+    requestAnimationFrame(
+      function () {
+        positionFreeRequestsHint();
+
+        requestAnimationFrame(
+          function () {
+            hint.classList.add(
+              'is-visible'
+            );
+          }
+        );
+      }
+    );
+  }
+
+
+  function maybeShowFreeRequestsHint(
+    value
+  ) {
+    if (
+      currentContext
+        ?.isAnonymous !== true
+    ) {
+      return;
+    }
+
+    if (
+      typeof value !== 'number' ||
+      !Number.isFinite(value) ||
+      value <= 0
+    ) {
+      return;
+    }
+
+    createFreeRequestsHint(
+      value
+    );
+  }
+
+
+  // =========================================================
   // Initial counter from context
   // =========================================================
 
@@ -362,6 +716,10 @@
           String(value)
         );
 
+        maybeShowFreeRequestsHint(
+          value
+        );
+
         return true;
       }
     }
@@ -381,6 +739,10 @@
         String(
           currentContext.limit
         )
+      );
+
+      maybeShowFreeRequestsHint(
+        currentContext.limit
       );
 
       return true;
@@ -848,11 +1210,17 @@
 
   window.addEventListener(
     'load',
-    updateToolbarHeight
+    function () {
+      updateToolbarHeight();
+      positionFreeRequestsHint();
+    }
   );
 
   window.addEventListener(
     'resize',
-    updateToolbarHeight
+    function () {
+      updateToolbarHeight();
+      positionFreeRequestsHint();
+    }
   );
 })();
