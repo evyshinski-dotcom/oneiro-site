@@ -42,79 +42,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 
   // =========================================================
-  // Device ID для бесплатного trial
-  // =========================================================
-
-  function getWebVisitorId() {
-    const storageKey =
-      'oneiro:visitor_id';
-
-    try {
-      let visitorId =
-        localStorage.getItem(storageKey);
-
-      if (visitorId) {
-        return visitorId;
-      }
-
-      if (
-        window.crypto &&
-        typeof window.crypto.randomUUID ===
-          'function'
-      ) {
-        visitorId =
-          window.crypto.randomUUID();
-      } else {
-        visitorId =
-          'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-            .replace(
-              /[xy]/g,
-              char => {
-                const random =
-                  Math.random() * 16 | 0;
-
-                const value =
-                  char === 'x'
-                    ? random
-                    : (random & 0x3) | 0x8;
-
-                return value.toString(16);
-              }
-            );
-      }
-
-      localStorage.setItem(
-        storageKey,
-        visitorId
-      );
-
-      return visitorId;
-
-    } catch (e) {
-      console.warn(
-        'Не удалось получить visitor_id',
-        e
-      );
-
-      return '';
-    }
-  }
-
-
-  const deviceId =
-    isOneiroApp && ssaid
-      ? `android:${ssaid}`
-      : (() => {
-          const visitorId =
-            getWebVisitorId();
-
-          return visitorId
-            ? `web:${visitorId}`
-            : '';
-        })();
-
-
-  // =========================================================
   // Ошибка загрузки чата
   // =========================================================
 
@@ -257,38 +184,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
     }
 
     return null;
-  }
-
-
-  // =========================================================
-  // Бесплатный trial
-  // =========================================================
-
-  async function claimSleepTrial(
-    currentDeviceId
-  ) {
-    if (!currentDeviceId) {
-      throw new Error(
-        'Device ID is not available'
-      );
-    }
-
-    const {
-      data,
-      error
-    } = await sb.rpc(
-      'claim_sleep_trial',
-      {
-        p_ssaid:
-          currentDeviceId,
-      }
-    );
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
   }
 
 
@@ -460,35 +355,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 
   // =========================================================
-  // Проверяем бесплатный trial для anonymous
-  // =========================================================
-
-  if (isAnonymous) {
-    try {
-      const claimedLimit =
-        await claimSleepTrial(
-          deviceId
-        );
-
-      if (
-        claimedLimit !== null &&
-        claimedLimit !== undefined
-      ) {
-        sleepUser.limit =
-          Number(claimedLimit);
-      }
-
-    } catch (e) {
-      fail(
-        'Ошибка проверки бесплатного trial',
-        e
-      );
-      return;
-    }
-  }
-
-
-  // =========================================================
   // User context
   // =========================================================
 
@@ -548,8 +414,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
       isOneiroApp,
 
     ssaid,
-
-    deviceId,
 
     appSleepsAvailable:
       appSleeps.available,
@@ -633,11 +497,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
       oneiroapp:
         isOneiroApp,
-
-      ssaid,
-
-      device_id:
-        deviceId,
 
       app_sleeps_available:
         appSleeps.available,
@@ -851,27 +710,18 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
         !newSession?.access_token
       ) {
         try {
-          /*
-           * Удаляем только sessionId n8n.
-           *
-           * oneiro:visitor_id НЕ удаляем:
-           * он нужен как постоянный идентификатор
-           * браузера для контроля бесплатного trial.
-           */
           localStorage.removeItem(
             'n8n-chat/sessionId'
           );
         } catch (e) {}
 
         /*
-         * На /chat logout не ведёт на login.
+         * На /chat logout больше не ведёт
+         * на login.
          *
          * Перезагружаем страницу:
-         * chat.js создаст нового anonymous user,
-         * но тот же deviceId останется в localStorage.
-         *
-         * claim_sleep_trial() определит,
-         * использовался ли trial на этом устройстве.
+         * chat.js создаст новую anonymous
+         * session.
          */
         window.location.reload();
         return;
