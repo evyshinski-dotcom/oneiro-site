@@ -433,91 +433,110 @@
   }
 
 
-  function positionFreeRequestsHint() {
-    const hint =
-      document.getElementById(
-        'oneiro-free-requests-hint'
-      );
+function positionFreeRequestsHint() {
+  const hint =
+    document.getElementById(
+      'oneiro-free-requests-hint'
+    );
 
-    const counter =
-      document.querySelector(
-        '.oneiro-toolbar-counter-badge'
-      );
+  const counterBadge =
+    document.querySelector(
+      '.oneiro-toolbar-counter-badge'
+    );
 
-    if (
-      !hint ||
-      !counter
-    ) {
-      return;
-    }
+  const counterValue =
+    document.getElementById(
+      'oneiro-requests-left'
+    );
 
-    const counterRect =
-      counter.getBoundingClientRect();
-
-    const hintRect =
-      hint.getBoundingClientRect();
-
-    const viewportPadding =
-      12;
-
-    let left =
-      counterRect.left +
-      counterRect.width / 2 -
-      hintRect.width / 2;
-
-    left =
-      Math.max(
-        viewportPadding,
-        Math.min(
-          left,
-          window.innerWidth -
-            hintRect.width -
-            viewportPadding
-        )
-      );
-
-    let top =
-      counterRect.top -
-      hintRect.height -
-      24;
-
-    top =
-      Math.max(
-        12,
-        top
-      );
-
-    hint.style.left =
-      left + 'px';
-
-    hint.style.top =
-      top + 'px';
-
-    const arrow =
-      hint.querySelector(
-        '.oneiro-free-hint-arrow'
-      );
-
-    if (!arrow) {
-      return;
-    }
-
-    const counterCenter =
-      counterRect.left +
-      counterRect.width / 2;
-
-    const arrowLeft =
-      Math.max(
-        28,
-        Math.min(
-          hintRect.width - 28,
-          counterCenter - left
-        )
-      );
-
-    arrow.style.left =
-      arrowLeft + 'px';
+  if (
+    !hint ||
+    !counterBadge ||
+    !counterValue
+  ) {
+    return;
   }
+
+  const badgeRect =
+    counterBadge.getBoundingClientRect();
+
+  const valueRect =
+    counterValue.getBoundingClientRect();
+
+  const hintRect =
+    hint.getBoundingClientRect();
+
+  const viewportPadding =
+    12;
+
+  /*
+   * Саму плашку оставляем
+   * примерно над блоком счётчика.
+   */
+  let left =
+    badgeRect.left +
+    badgeRect.width / 2 -
+    hintRect.width / 2;
+
+  left =
+    Math.max(
+      viewportPadding,
+      Math.min(
+        left,
+        window.innerWidth -
+          hintRect.width -
+          viewportPadding
+      )
+    );
+
+  let top =
+    badgeRect.top -
+    hintRect.height -
+    30;
+
+  top =
+    Math.max(
+      12,
+      top
+    );
+
+  hint.style.left =
+    left + 'px';
+
+  hint.style.top =
+    top + 'px';
+
+
+  /*
+   * Стрелку направляем не в центр
+   * badge "3 +", а точно в центр
+   * самого значения "3".
+   */
+  const arrow =
+    hint.querySelector(
+      '.oneiro-free-hint-arrow'
+    );
+
+  if (!arrow) {
+    return;
+  }
+
+  const valueCenter =
+    valueRect.left +
+    valueRect.width / 2;
+
+  const arrowLeft =
+    Math.max(
+      26,
+      Math.min(
+        hintRect.width - 26,
+        valueCenter - left
+      )
+    );
+
+  arrow.style.left =
+    arrowLeft + 'px';
+}
 
 
   function createFreeRequestsHint(
@@ -601,20 +620,25 @@
       </button>
 
       <div
-        class="oneiro-free-hint-arrow"
-        aria-hidden="true"
-      >
-        <svg
-          viewBox="0 0 42 42"
-        >
-          <path
-            d="M8 5C12 18 22 27 35 31"
-          />
-          <path
-            d="M27 27L35 31L31 22"
-          />
-        </svg>
-      </div>
+  class="oneiro-free-hint-arrow"
+  aria-hidden="true"
+>
+  <svg
+    viewBox="0 0 44 44"
+  >
+    <path
+      d="M8 3 C10 17 20 29 35 34"
+    />
+
+    <path
+      d="M35 34 L27 32"
+    />
+
+    <path
+      d="M35 34 L32 26"
+    />
+  </svg>
+</div>
     `;
 
     document.body.appendChild(
@@ -1223,4 +1247,4 @@
       positionFreeRequestsHint();
     }
   );
-})();
+})();	
