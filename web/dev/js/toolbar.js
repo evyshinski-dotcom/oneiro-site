@@ -627,15 +627,15 @@ function positionFreeRequestsHint() {
     viewBox="0 0 44 44"
   >
     <path
-      d="M8 3 C10 17 20 29 35 34"
+      d="M8 3 C10 16 19 27 34 33"
     />
 
     <path
-      d="M35 34 L27 32"
+      d="M34 33 L25 34"
     />
 
     <path
-      d="M35 34 L32 26"
+      d="M35 34 L31 24"
     />
   </svg>
 </div>
