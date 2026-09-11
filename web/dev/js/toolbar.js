@@ -470,8 +470,8 @@ function positionFreeRequestsHint() {
     12;
 
   /*
-   * Саму плашку оставляем
-   * примерно над блоком счётчика.
+   * Плашка располагается
+   * над блоком счётчика.
    */
   let left =
     badgeRect.left +
@@ -508,9 +508,8 @@ function positionFreeRequestsHint() {
 
 
   /*
-   * Стрелку направляем не в центр
-   * badge "3 +", а точно в центр
-   * самого значения "3".
+   * Центрируем ОСТРИЁ стрелки
+   * точно над числом остатка запросов.
    */
   const arrow =
     hint.querySelector(
@@ -526,16 +525,16 @@ function positionFreeRequestsHint() {
     valueRect.width / 2;
 
   const arrowLeft =
-    Math.max(
-      26,
-      Math.min(
-        hintRect.width - 26,
-        valueCenter - left
-      )
-    );
+    valueCenter - left;
 
   arrow.style.left =
-    arrowLeft + 'px';
+    Math.max(
+      24,
+      Math.min(
+        hintRect.width - 24,
+        arrowLeft
+      )
+    ) + 'px';
 }
 
 
@@ -620,22 +619,21 @@ function positionFreeRequestsHint() {
       </button>
 
       <div
+<div
   class="oneiro-free-hint-arrow"
   aria-hidden="true"
 >
   <svg
     viewBox="0 0 44 44"
   >
+    <!-- тело стрелки -->
     <path
-      d="M8 3 C10 16 19 27 34 33"
+      d="M8 3 C8 16 13 27 22 34"
     />
 
+    <!-- наконечник -->
     <path
-      d="M34 33 L25 34"
-    />
-
-    <path
-      d="M35 34 L31 24"
+      d="M13 32 L22 34 L19 25"
     />
   </svg>
 </div>
