@@ -433,109 +433,103 @@
   }
 
 
-function positionFreeRequestsHint() {
-  const hint =
-    document.getElementById(
-      'oneiro-free-requests-hint'
-    );
+  function positionFreeRequestsHint() {
+    const hint =
+      document.getElementById(
+        'oneiro-free-requests-hint'
+      );
 
-  const counterBadge =
-    document.querySelector(
-      '.oneiro-toolbar-counter-badge'
-    );
+    const counterBadge =
+      document.querySelector(
+        '.oneiro-toolbar-counter-badge'
+      );
 
-  const counterValue =
-    document.getElementById(
-      'oneiro-requests-left'
-    );
+    const counterValue =
+      document.getElementById(
+        'oneiro-requests-left'
+      );
 
-  if (
-    !hint ||
-    !counterBadge ||
-    !counterValue
-  ) {
-    return;
+    if (
+      !hint ||
+      !counterBadge ||
+      !counterValue
+    ) {
+      return;
+    }
+
+    const badgeRect =
+      counterBadge
+        .getBoundingClientRect();
+
+    const valueRect =
+      counterValue
+        .getBoundingClientRect();
+
+    const hintRect =
+      hint
+        .getBoundingClientRect();
+
+    const viewportPadding =
+      12;
+
+    let left =
+      badgeRect.left +
+      badgeRect.width / 2 -
+      hintRect.width / 2;
+
+    left =
+      Math.max(
+        viewportPadding,
+        Math.min(
+          left,
+          window.innerWidth -
+            hintRect.width -
+            viewportPadding
+        )
+      );
+
+    let top =
+      badgeRect.top -
+      hintRect.height -
+      30;
+
+    top =
+      Math.max(
+        12,
+        top
+      );
+
+    hint.style.left =
+      left + 'px';
+
+    hint.style.top =
+      top + 'px';
+
+    const arrow =
+      hint.querySelector(
+        '.oneiro-free-hint-arrow'
+      );
+
+    if (!arrow) {
+      return;
+    }
+
+    const valueCenter =
+      valueRect.left +
+      valueRect.width / 2;
+
+    const arrowLeft =
+      valueCenter - left;
+
+    arrow.style.left =
+      Math.max(
+        24,
+        Math.min(
+          hintRect.width - 24,
+          arrowLeft
+        )
+      ) + 'px';
   }
-
-  const badgeRect =
-    counterBadge.getBoundingClientRect();
-
-  const valueRect =
-    counterValue.getBoundingClientRect();
-
-  const hintRect =
-    hint.getBoundingClientRect();
-
-  const viewportPadding =
-    12;
-
-  /*
-   * Плашка располагается
-   * над блоком счётчика.
-   */
-  let left =
-    badgeRect.left +
-    badgeRect.width / 2 -
-    hintRect.width / 2;
-
-  left =
-    Math.max(
-      viewportPadding,
-      Math.min(
-        left,
-        window.innerWidth -
-          hintRect.width -
-          viewportPadding
-      )
-    );
-
-  let top =
-    badgeRect.top -
-    hintRect.height -
-    30;
-
-  top =
-    Math.max(
-      12,
-      top
-    );
-
-  hint.style.left =
-    left + 'px';
-
-  hint.style.top =
-    top + 'px';
-
-
-  /*
-   * Центрируем ОСТРИЁ стрелки
-   * точно над числом остатка запросов.
-   */
-  const arrow =
-    hint.querySelector(
-      '.oneiro-free-hint-arrow'
-    );
-
-  if (!arrow) {
-    return;
-  }
-
-  const valueCenter =
-    valueRect.left +
-    valueRect.width / 2;
-
-  const arrowLeft =
-    valueCenter - left;
-
-  arrow.style.left =
-    Math.max(
-      24,
-      Math.min(
-        hintRect.width - 24,
-        arrowLeft
-      )
-    ) + 'px';
-}
 
 
   function createFreeRequestsHint(
@@ -586,21 +580,20 @@ function positionFreeRequestsHint() {
           aria-hidden="true"
         >
           <path
-      d="M10.5 4.5
-         C11.2 8.3 13.2 10.3 17 11
-         C13.2 11.7 11.2 13.7 10.5 17.5
-         C9.8 13.7 7.8 11.7 4 11
-         C7.8 10.3 9.8 8.3 10.5 4.5Z"
-    />
+            d="M10.5 4.5
+               C11.2 8.3 13.2 10.3 17 11
+               C13.2 11.7 11.2 13.7 10.5 17.5
+               C9.8 13.7 7.8 11.7 4 11
+               C7.8 10.3 9.8 8.3 10.5 4.5Z"
+          />
 
-    <!-- маленькая звезда -->
-    <path
-      d="M23 5
-         C23.4 7.2 24.6 8.4 26.8 8.8
-         C24.6 9.2 23.4 10.4 23 12.6
-         C22.6 10.4 21.4 9.2 19.2 8.8
-         C21.4 8.4 22.6 7.2 23 5Z"
-    />
+          <path
+            d="M23 5
+               C23.4 7.2 24.6 8.4 26.8 8.8
+               C24.6 9.2 23.4 10.4 23 12.6
+               C22.6 10.4 21.4 9.2 19.2 8.8
+               C21.4 8.4 22.6 7.2 23 5Z"
+          />
         </svg>
       </div>
 
@@ -626,24 +619,21 @@ function positionFreeRequestsHint() {
       </button>
 
       <div
-<div
-  class="oneiro-free-hint-arrow"
-  aria-hidden="true"
->
-  <svg
-    viewBox="0 0 44 44"
-  >
-    <!-- тело стрелки -->
-    <path
-      d="M8 3 C8 16 13 27 22 34"
-    />
+        class="oneiro-free-hint-arrow"
+        aria-hidden="true"
+      >
+        <svg
+          viewBox="0 0 44 44"
+        >
+          <path
+            d="M8 3 C8 16 13 27 22 34"
+          />
 
-    <!-- наконечник -->
-    <path
-      d="M13 32 L22 34 L19 25"
-    />
-  </svg>
-</div>
+          <path
+            d="M13 32 L22 34 L19 25"
+          />
+        </svg>
+      </div>
     `;
 
     document.body.appendChild(
@@ -727,9 +717,8 @@ function positionFreeRequestsHint() {
     }
 
     /*
-     * chat.js уже вызвал getUserInfo.
-     * Используем тот же ответ и не делаем
-     * второй HTTP-запрос при загрузке.
+     * Если background getUserInfo уже
+     * успел завершиться — используем его.
      */
     if (currentContext.userInfo) {
       const value =
@@ -754,8 +743,9 @@ function positionFreeRequestsHint() {
     }
 
     /*
-     * Fallback на значение,
-     * полученное напрямую из sleep_users.
+     * Обычно initial render идёт отсюда:
+     * значение уже есть в sleep_users,
+     * поэтому второй getUserInfo не нужен.
      */
     if (
       typeof currentContext
@@ -827,12 +817,6 @@ function positionFreeRequestsHint() {
       }
     }
 
-    /*
-     * Сохраняем oneiroapp,
-     * чтобы checkout → login
-     * корректно вернул пользователя
-     * в приложение.
-     */
     if (
       current
         .searchParams
@@ -1143,19 +1127,63 @@ function positionFreeRequestsHint() {
         applyInitialCounterFromContext();
 
       /*
-       * Обычно сюда не попадём:
-       * userInfo уже должен прийти
-       * из chat.js.
+       * Нормальный путь сюда не попадёт:
+       * chat.js уже передаёт limit
+       * из sleep_users.
        *
-       * Но если ранний getUserInfo
-       * не сработал, toolbar делает
-       * резервную попытку.
+       * Это только защитный fallback.
        */
       if (!initialized) {
         refreshRequestsLeft(
           true
         );
       }
+    }
+  );
+
+
+  /*
+   * Фоновый getUserInfo,
+   * который уже был запущен chat.js.
+   *
+   * Никакого дополнительного HTTP-запроса
+   * здесь не делаем.
+   */
+  window.addEventListener(
+    'oneiro:user-info-ready',
+
+    function (event) {
+      const userInfo =
+        event?.detail?.userInfo;
+
+      if (!userInfo) {
+        return;
+      }
+
+      if (currentContext) {
+        currentContext.userInfo =
+          userInfo;
+      }
+
+      const value =
+        extractRequestsLeft(
+          userInfo
+        );
+
+      if (value == null) {
+        return;
+      }
+
+      lastLoadedValue =
+        value;
+
+      setCounterValue(
+        String(value)
+      );
+
+      maybeShowFreeRequestsHint(
+        value
+      );
     }
   );
 
@@ -1211,11 +1239,6 @@ function positionFreeRequestsHint() {
       const initialized =
         applyInitialCounterFromContext();
 
-      /*
-       * Fallback только если chat.js
-       * вообще не передал ни userInfo,
-       * ни исходный limit.
-       */
       if (!initialized) {
         refreshRequestsLeft(
           true
@@ -1252,4 +1275,4 @@ function positionFreeRequestsHint() {
       positionFreeRequestsHint();
     }
   );
-})();	
+})();

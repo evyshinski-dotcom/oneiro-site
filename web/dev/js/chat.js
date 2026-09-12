@@ -40,38 +40,40 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   const ssaid =
     (searchParams.get('ssaid') || '').trim();
 
-	// =========================================================
-	// Device ID
-	// =========================================================
-	
-	function getWebDeviceId() {
-	const key =
-		'oneiro:web_device_id';
-	
-	let id =
-		localStorage.getItem(key);
-	
-	if (!id) {
-		id =
-		crypto.randomUUID();
-	
-		localStorage.setItem(
-		key,
-		id
-		);
-	}
-	
-	return (
-		'web:' + id
-	);
-	}
-	
-	const deviceId =
-	isOneiroApp
-		? ssaid
-		: getWebDeviceId();
-		
-		
+
+  // =========================================================
+  // Device ID
+  // =========================================================
+
+  function getWebDeviceId() {
+    const key =
+      'oneiro:web_device_id';
+
+    let id =
+      localStorage.getItem(key);
+
+    if (!id) {
+      id =
+        crypto.randomUUID();
+
+      localStorage.setItem(
+        key,
+        id
+      );
+    }
+
+    return (
+      'web:' + id
+    );
+  }
+
+
+  const deviceId =
+    isOneiroApp
+      ? ssaid
+      : getWebDeviceId();
+
+
   // =========================================================
   // Ошибка загрузки чата
   // =========================================================
@@ -89,33 +91,36 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
         '</div>';
     }
   }
-	// =========================================================
-	// Проверка зарегистрированного пользователя по SSAID и device ID
-	// =========================================================
-	
-	
-	async function hasPermanentUserForDeviceId() {
-	if (!deviceId) {
-		return false;
-	}
-	
-	const {
-		data,
-		error
-	} = await sb.rpc(
-		'has_permanent_user_for_ssaid',
-		{
-		p_ssaid:
-			deviceId,
-		}
-	);
-	
-	if (error) {
-		throw error;
-	}
-	
-	return data === true;
-	}
+
+
+  // =========================================================
+  // Проверка зарегистрированного пользователя по SSAID
+  // и device ID
+  // =========================================================
+
+  async function hasPermanentUserForDeviceId() {
+    if (!deviceId) {
+      return false;
+    }
+
+    const {
+      data,
+      error
+    } = await sb.rpc(
+      'has_permanent_user_for_ssaid',
+      {
+        p_ssaid:
+          deviceId,
+      }
+    );
+
+    if (error) {
+      throw error;
+    }
+
+    return data === true;
+  }
+
 
   // =========================================================
   // Supabase session
@@ -159,103 +164,100 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   }
 
 
-	async function getOrCreateSession() {
-	let session =
-		await getValidSession();
-	
-	if (session?.access_token) {
-		return session;
-	}
-	
-	/*
-	* В Android-приложении перед созданием
-	* нового anonymous user проверяем,
-	* не принадлежит ли SSAID уже
-	* permanent-пользователю.
-	*/
-	const hasPermanentUser =
-	await hasPermanentUserForDeviceId();
-	
-	if (hasPermanentUser) {
-	const params =
-		new URLSearchParams();
-	
-	let next =
-		config.routes.chat;
-	
-	/*
-	* В Android возвращаем в чат
-	* вместе с oneiroapp и SSAID.
-	*
-	* В браузере deviceId лежит
-	* в localStorage, поэтому
-	* передавать его через URL
-	* не требуется.
-	*/
-	if (
-		isOneiroApp &&
-		ssaid
-	) {
-		const chatParams =
-		new URLSearchParams();
-	
-		chatParams.set(
-		'oneiroapp',
-		'true'
-		);
-	
-		chatParams.set(
-		'ssaid',
-		ssaid
-		);
-	
-		next =
-		config.routes.chat +
-		'?' +
-		chatParams.toString();
-	}
-	
-	params.set(
-		'next',
-		next
-	);
-	
-	if (isOneiroApp) {
-		params.set(
-		'oneiroapp',
-		'true'
-		);
-	}
-	
-	window.location.replace(
-		config.routes.login +
-		'?' +
-		params.toString()
-	);
-	
-	return null;
-	}
-	
-	const {
-		data,
-		error
-	} = await sb.auth.signInAnonymously();
-	
-	if (error) {
-		throw error;
-	}
-	
-	session =
-		data?.session || null;
-	
-	if (!session?.access_token) {
-		throw new Error(
-		'Anonymous session was not created'
-		);
-	}
-	
-	return session;
-	}
+  async function getOrCreateSession() {
+    let session =
+      await getValidSession();
+
+    if (session?.access_token) {
+      return session;
+    }
+
+    /*
+     * Перед созданием нового anonymous user
+     * проверяем, не принадлежит ли device ID
+     * permanent-пользователю.
+     */
+    const hasPermanentUser =
+      await hasPermanentUserForDeviceId();
+
+    if (hasPermanentUser) {
+      const params =
+        new URLSearchParams();
+
+      let next =
+        config.routes.chat;
+
+      /*
+       * В Android возвращаем в чат
+       * вместе с oneiroapp и SSAID.
+       *
+       * В браузере deviceId лежит
+       * в localStorage.
+       */
+      if (
+        isOneiroApp &&
+        ssaid
+      ) {
+        const chatParams =
+          new URLSearchParams();
+
+        chatParams.set(
+          'oneiroapp',
+          'true'
+        );
+
+        chatParams.set(
+          'ssaid',
+          ssaid
+        );
+
+        next =
+          config.routes.chat +
+          '?' +
+          chatParams.toString();
+      }
+
+      params.set(
+        'next',
+        next
+      );
+
+      if (isOneiroApp) {
+        params.set(
+          'oneiroapp',
+          'true'
+        );
+      }
+
+      window.location.replace(
+        config.routes.login +
+        '?' +
+        params.toString()
+      );
+
+      return null;
+    }
+
+    const {
+      data,
+      error
+    } = await sb.auth.signInAnonymously();
+
+    if (error) {
+      throw error;
+    }
+
+    session =
+      data?.session || null;
+
+    if (!session?.access_token) {
+      throw new Error(
+        'Anonymous session was not created'
+      );
+    }
+
+    return session;
+  }
 
 
   // =========================================================
@@ -311,88 +313,90 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
     return null;
   }
-  
-	// =========================================================
-	// Получение userInfo + регистрация device ID
-	// =========================================================
-	
-	async function loadUserInfoThroughN8n({
-	accessToken,
-	authUserId,
-	sleepUser
-	}) {
-	const url =
-		new URL(
-		config.n8n.getUserInfo
-		);
-	
-	url.searchParams.set(
-		'tg_userid',
-		String(
-		sleepUser.tg_userid || ''
-		)
-	);
-	
-	url.searchParams.set(
-		'auth_user_id',
-		authUserId
-	);
-	
-	url.searchParams.set(
-		'sleep_user_id',
-		String(
-		sleepUser.id
-		)
-	);
-	
-	if (deviceId) {
-		url.searchParams.set(
-		'ssaid',
-		deviceId
-		);
-	}
-	
-	const response =
-		await fetch(
-		url.toString(),
-		{
-			method: 'GET',
-	
-			headers: {
-			token:
-				accessToken,
-	
-			tg_userid:
-				String(
-				sleepUser.tg_userid || ''
-				),
-	
-			ssaid:
-				String(
-				deviceId || ''
-				),
-	
-			Accept:
-				'application/json',
-			},
-	
-			credentials:
-			'omit',
-	
-			cache:
-			'no-store',
-		}
-		);
-	
-	if (!response.ok) {
-		throw new Error(
-		'getUserInfo HTTP ' +
-		response.status
-		);
-	}
-	
-	return await response.json();
-	}
+
+
+  // =========================================================
+  // Получение userInfo + регистрация device ID
+  // =========================================================
+
+  async function loadUserInfoThroughN8n({
+    accessToken,
+    authUserId,
+    sleepUser
+  }) {
+    const url =
+      new URL(
+        config.n8n.getUserInfo
+      );
+
+    url.searchParams.set(
+      'tg_userid',
+      String(
+        sleepUser.tg_userid || ''
+      )
+    );
+
+    url.searchParams.set(
+      'auth_user_id',
+      authUserId
+    );
+
+    url.searchParams.set(
+      'sleep_user_id',
+      String(
+        sleepUser.id
+      )
+    );
+
+    if (deviceId) {
+      url.searchParams.set(
+        'ssaid',
+        deviceId
+      );
+    }
+
+    const response =
+      await fetch(
+        url.toString(),
+        {
+          method: 'GET',
+
+          headers: {
+            token:
+              accessToken,
+
+            tg_userid:
+              String(
+                sleepUser.tg_userid || ''
+              ),
+
+            ssaid:
+              String(
+                deviceId || ''
+              ),
+
+            Accept:
+              'application/json',
+          },
+
+          credentials:
+            'omit',
+
+          cache:
+            'no-store',
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        'getUserInfo HTTP ' +
+        response.status
+      );
+    }
+
+    return await response.json();
+  }
+
 
   // =========================================================
   // Данные из Android-приложения
@@ -503,22 +507,22 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   // Авторизация / anonymous signup
   // =========================================================
 
-	let session;
+  let session;
 
-	try {
-	session =
-		await getOrCreateSession();
-	} catch (e) {
-	fail(
-		'Ошибка авторизации',
-		e
-	);
-	return;
-	}
-	
-	if (!session) {
-	return;
-	}
+  try {
+    session =
+      await getOrCreateSession();
+  } catch (e) {
+    fail(
+      'Ошибка авторизации',
+      e
+    );
+    return;
+  }
+
+  if (!session) {
+    return;
+  }
 
   const authUserId =
     session.user?.id || '';
@@ -563,26 +567,26 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
     );
     return;
   }
-  
-	// =========================================================
-	// Получаем userInfo и регистрируем устройство
-	// =========================================================
-	
-	let userInfo = null;
-	
-	try {
-	userInfo =
-		await loadUserInfoThroughN8n({
-		accessToken,
-		authUserId,
-		sleepUser,
-		});
-	} catch (e) {
-	console.warn(
-		'Не удалось получить userInfo через getUserInfo',
-		e
-	);
-	}
+
+
+  // =========================================================
+  // Запускаем getUserInfo сразу, но НЕ блокируем загрузку чата
+  // =========================================================
+
+  const userInfoPromise =
+    loadUserInfoThroughN8n({
+      accessToken,
+      authUserId,
+      sleepUser,
+    })
+      .catch(e => {
+        console.warn(
+          'Не удалось получить userInfo через getUserInfo',
+          e
+        );
+
+        return null;
+      });
 
 
   // =========================================================
@@ -636,7 +640,13 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
     limit:
       sleepUser.limit ?? null,
 
-    userInfo,
+    /*
+     * userInfo догружается параллельно.
+     * Для стартового toolbar достаточно
+     * sleepUser.limit.
+     */
+    userInfo:
+      null,
 
     isAnonymous,
 
@@ -647,7 +657,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
       isOneiroApp,
 
     ssaid:
-		deviceId,
+      deviceId,
 
     appSleepsAvailable:
       appSleeps.available,
@@ -731,9 +741,9 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
       oneiroapp:
         isOneiroApp,
-		
-	  ssaid:
-		deviceId,
+
+      ssaid:
+        deviceId,
 
       app_sleeps_available:
         appSleeps.available,
@@ -786,7 +796,46 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 
   // =========================================================
+  // Догружаем userInfo в фоне
+  // =========================================================
+
+  userInfoPromise
+    .then(userInfo => {
+      if (!userInfo) {
+        return;
+      }
+
+      oneiroUserContext.userInfo =
+        userInfo;
+
+      window.OneiroUserContext =
+        oneiroUserContext;
+
+      /*
+       * Не переиспользуем
+       * oneiro:user-context-ready:
+       * это initial event.
+       *
+       * Для фонового userInfo —
+       * отдельное событие.
+       */
+      window.dispatchEvent(
+        new CustomEvent(
+          'oneiro:user-info-ready',
+          {
+            detail: {
+              userInfo,
+            },
+          }
+        )
+      );
+    });
+
+
+  // =========================================================
   // Fix textarea height after send
+  // +
+  // фиксируем реальные отправки пользователя
   // =========================================================
 
   const chatRoot =
@@ -794,7 +843,78 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
       '#n8n-chat'
     );
 
+  /*
+   * Количество пользовательских сообщений,
+   * для которых мы ещё ждём bot response.
+   *
+   * Initial/history bot messages сюда
+   * не относятся и поэтому больше
+   * не вызывают getUserInfo.
+   */
+  let pendingBotResponses =
+    0;
+
+  let lastTrackedOutgoingText =
+    '';
+
+  let lastTrackedOutgoingAt =
+    0;
+
+
+  function getChatTextarea() {
+    return chatRoot
+      ?.querySelector(
+        'textarea[data-test-id="chat-input"]'
+      ) || null;
+  }
+
+
+  function registerOutgoingMessage() {
+    const textarea =
+      getChatTextarea();
+
+    const text =
+      (
+        textarea?.value || ''
+      ).trim();
+
+    if (!text) {
+      return;
+    }
+
+    /*
+     * Защита от двойного учёта:
+     * один и тот же send иногда может
+     * породить несколько DOM events.
+     */
+    const now =
+      Date.now();
+
+    if (
+      text ===
+        lastTrackedOutgoingText &&
+      now -
+        lastTrackedOutgoingAt <
+        800
+    ) {
+      return;
+    }
+
+    lastTrackedOutgoingText =
+      text;
+
+    lastTrackedOutgoingAt =
+      now;
+
+    pendingBotResponses +=
+      1;
+  }
+
+
   if (chatRoot) {
+    /*
+     * Отправка кнопкой.
+     */
     chatRoot.addEventListener(
       'click',
 
@@ -808,11 +928,20 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
           return;
         }
 
+        if (
+          sendButton.disabled ||
+          sendButton.getAttribute(
+            'aria-disabled'
+          ) === 'true'
+        ) {
+          return;
+        }
+
+        registerOutgoingMessage();
+
         setTimeout(() => {
           const textarea =
-            chatRoot.querySelector(
-              'textarea[data-test-id="chat-input"]'
-            );
+            getChatTextarea();
 
           if (
             !textarea ||
@@ -824,6 +953,31 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
           textarea.style.height =
             'var(--chat--textarea--height)';
         }, 0);
+      },
+
+      true
+    );
+
+
+    /*
+     * Отправка Enter.
+     *
+     * Shift+Enter остаётся переносом строки.
+     * IME/composition не считаем отправкой.
+     */
+    chatRoot.addEventListener(
+      'keydown',
+
+      event => {
+        if (
+          event.key !== 'Enter' ||
+          event.shiftKey ||
+          event.isComposing
+        ) {
+          return;
+        }
+
+        registerOutgoingMessage();
       },
 
       true
@@ -854,6 +1008,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
       );
     }
   }
+
 
   const chatTarget =
     document.querySelector(
@@ -897,6 +1052,16 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
           return;
         }
 
+        /*
+         * Signature обновляем ВСЕГДА.
+         *
+         * Благодаря этому сообщения,
+         * появившиеся при initial render
+         * или восстановлении истории,
+         * становятся baseline и не будут
+         * приняты за ответ на следующее
+         * пользовательское сообщение.
+         */
         if (
           text ===
           lastBotMessageSignature
@@ -906,6 +1071,28 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
         lastBotMessageSignature =
           text;
+
+        /*
+         * Если пользователь ничего
+         * не отправлял, это initial/history
+         * bot message. Счётчик не обновляем.
+         */
+        if (
+          pendingBotResponses <= 0
+        ) {
+          return;
+        }
+
+        /*
+         * Один новый bot response
+         * закрывает одно ожидаемое
+         * пользовательское сообщение.
+         */
+        pendingBotResponses =
+          Math.max(
+            0,
+            pendingBotResponses - 1
+          );
 
         clearTimeout(
           refreshTimer
