@@ -2,7 +2,7 @@ window.ONEIRO_CONFIG = {
   env: 'dev',
 
   supabase: {
-    url: 'https://ivagulin.dedyn.io/supabase-dev',
+    url: 'https://oneiro-mom.ru/supabase-dev',
     anonKey: 'sb_publishable_E9xJ0O9l3Frwog9qREIsXg_agRUx9oF'
   },
 
@@ -18,16 +18,16 @@ window.ONEIRO_CONFIG = {
   },
 
   n8n: {
-    chat: 'https://ivagulin.dedyn.io/webhook/57607eb8-5004-4dec-ae86-4972c652b50f/chat',
-    getUserInfo: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/getUserInfo',
-    updateBabyInfo: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/updateBabyInfo',
-    cancelAutorenew: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/cancelAutorenew',
-    activateCertificate: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/activateCertificate',
-    timeCalc: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/time-calc',
-    generatePaymentData: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/generatePaymentData',
-    setPromo: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/setPromo',
-    postTGlinkRequest: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/postTGlinkRequest',
-    generateCertPaymentLink: 'https://ivagulin.dedyn.io/webhook/dev/oneiro/generateCertPaymentLink'
+    chat: 'https://oneiro-mom.ru/webhook/57607eb8-5004-4dec-ae86-4972c652b50f/chat',
+    getUserInfo: 'https://oneiro-mom.ru/webhook/dev/oneiro/getUserInfo',
+    updateBabyInfo: 'https://oneiro-mom.ru/webhook/dev/oneiro/updateBabyInfo',
+    cancelAutorenew: 'https://oneiro-mom.ru/webhook/dev/oneiro/cancelAutorenew',
+    activateCertificate: 'https://oneiro-mom.ru/webhook/dev/oneiro/activateCertificate',
+    timeCalc: 'https://oneiro-mom.ru/webhook/dev/oneiro/time-calc',
+    generatePaymentData: 'https://oneiro-mom.ru/webhook/dev/oneiro/generatePaymentData',
+    setPromo: 'https://oneiro-mom.ru/webhook/dev/oneiro/setPromo',
+    postTGlinkRequest: 'https://oneiro-mom.ru/webhook/dev/oneiro/postTGlinkRequest',
+    generateCertPaymentLink: 'https://oneiro-mom.ru/webhook/dev/oneiro/generateCertPaymentLink'
   },
 
   popups: {
