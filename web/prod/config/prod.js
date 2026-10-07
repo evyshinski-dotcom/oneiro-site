@@ -2,7 +2,7 @@ window.ONEIRO_CONFIG = {
   env: 'prod',
 
   supabase: {
-    url: 'https://oneiro-mom.ru/supabase',
+    url: 'https://proxy2.ivagulin.dedyn.io/supabase',
     anonKey: 'sb_publishable_2EoT9T3U_4TOal3RJLzA5g_NTHekBX4'
   },
 
